@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이마트 상담 BO · A안 / B안 / C안</title>
+<style>
+:root{color-scheme:light;--ink:#171717;--muted:#565656;--line:#d4d4d4;--soft:#f2f2f2;--paper:#fff;font:14px/1.48 "Malgun Gothic","Noto Sans CJK KR",sans-serif;color:var(--ink);background:#f5f5f5}
+*{box-sizing:border-box}body{margin:0}button,select,input,textarea{font:inherit;color:inherit}button{cursor:pointer;white-space:nowrap;background:#fff;border:1px solid #9d9d9d;border-radius:5px;padding:6px 10px;font-weight:650}button:hover{background:#eee}button.primary{background:#202020;color:#fff;border-color:#202020}button.primary:hover{background:#414141}button:disabled{cursor:default;opacity:.48}button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #333;outline-offset:2px}input,select,textarea{background:white;border:1px solid #aaa;border-radius:5px;padding:7px 8px;min-width:0}textarea{resize:vertical;width:100%}h1,h2,h3,p{margin:0}h1{font-size:18px}h2{font-size:17px}h3{font-size:14px}small,.muted{color:var(--muted)}hr{border:0;border-top:1px solid var(--line);margin:12px 0}.row{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.between{justify-content:space-between}.stack{display:grid;gap:10px}.quiet{font-size:12px;color:var(--muted)}.chip{display:inline-flex;align-items:center;border:1px solid #aaa;border-radius:4px;padding:2px 6px;font-size:11px;white-space:nowrap;font-weight:700}.chip.on{background:#252525;border-color:#252525;color:white}.sample{font-size:11px}.top{min-height:50px;background:#1e1e1e;color:white;padding:9px 17px}.top button{background:#1e1e1e;color:white;border-color:#8c8c8c}.toolbar,.nav{padding:8px 15px;background:#fff;border-bottom:1px solid var(--line)}.toolbar{background:#ededed}.nav button{border-color:transparent}.nav button.primary{border-color:#202020}.count{font-variant-numeric:tabular-nums}.grid{display:grid;grid-template-columns:minmax(174px,18fr) minmax(235px,30fr) minmax(430px,52fr);min-height:560px;height:calc(100dvh - 147px);margin:10px;gap:8px}.pane{min-width:0;border:1px solid var(--line);border-radius:8px;background:#fff;display:flex;flex-direction:column;overflow:hidden}.phead{background:#fff;padding:10px 11px;border-bottom:1px solid var(--line)}.scroller{overflow:auto;align-content:start;min-height:0;flex:1;padding:11px;scrollbar-gutter:stable}.tickets button.card{display:block;text-align:left;white-space:normal;width:100%;padding:9px;margin:0 0 7px;background:#fff;border:1px solid var(--line);font-weight:400}.tickets button.card[aria-pressed=true]{background:#ededed;border-color:#333;border-left:4px solid #222;padding-left:6px}.subject{font-weight:750;margin:5px 0}.ticketfoot{padding:10px;border-top:1px solid var(--line);background:#fafafa}.ticketfoot button{font-size:11px;width:100%;text-align:left;margin-top:4px}.chatbody{background:#f4f4f4}.msg{max-width:88%;margin:11px 0}.msg.agent{margin-left:auto}.msg p{background:#fff;border:1px solid var(--line);border-radius:6px;padding:9px;overflow-wrap:anywhere}.msg.agent p{background:#252525;border-color:#252525;color:white}.msg span{font-size:11px;color:#555}.compose{padding:9px;background:white;border-top:1px solid var(--line)}.compose button,.compact button{font-size:12px}.compose input{flex:1}.customer{background:#f4f4f4}.customer .row+.row{margin-top:6px}.orderbar{background:white}.orderbar strong{font-size:14px}.tabs{margin-top:8px}.tabs button{font-size:12px}.box{border:1px solid var(--line);border-radius:6px;padding:10px;background:#fff}.box.shade{background:#f3f3f3}.box h3{margin-bottom:6px}.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}.tiles>div{min-width:0}.kv{display:grid;grid-template-columns:minmax(70px,.65fr) minmax(0,2fr);gap:5px 8px;margin:0}.kv dt{color:#555}.kv dd{margin:0;overflow-wrap:anywhere}.strip{border:1px solid #8d8d8d;background:#eee;border-radius:6px;padding:9px}.notice{font-size:12px;padding:8px 10px;border:1px solid var(--line);border-left:3px solid #333;background:#fafafa;border-radius:4px}.scrolltable{overflow:auto}table{border-collapse:collapse;width:100%;text-align:left;font-size:12px}th,td{padding:7px 5px;border-bottom:1px solid var(--line);vertical-align:middle}th{background:#f0f0f0}td:last-child,th:last-child{text-align:right}.selected td{background:#eee}.nowrap{white-space:nowrap}.footer-actions{padding:8px 11px;border-top:1px solid var(--line);background:#f8f8f8}.status{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);background:#222;color:white;border-radius:5px;padding:8px 14px;z-index:3}.status:empty{display:none}
+dialog{border:1px solid #777;border-radius:9px;padding:0;width:min(720px,calc(100vw - 32px));max-height:calc(100dvh - 54px);color:#171717;background:white}dialog.wide{width:min(920px,calc(100vw - 32px))}.dhead,.dfoot{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 15px;background:#f5f5f5;border-bottom:1px solid var(--line)}.dfoot{border-bottom:0;border-top:1px solid var(--line);justify-content:flex-end}.dcontent{padding:15px;max-height:calc(100dvh - 185px);overflow:auto}.filter label,.field{display:grid;gap:4px}.filter input{width:150px}.dcontent ul{margin:5px 0;padding-left:21px}.dcontent th,.dcontent td{padding:9px 6px}.group{margin:0;padding:8px;border:1px solid var(--line);border-radius:5px}.group legend{padding:0 4px}.group label{margin-right:9px}.error{color:#222;font-weight:750}
+@media(max-width:880px){.grid{overflow:auto;grid-template-columns:165px 230px 430px}.toolbar{gap:5px}.toolbar .quiet{width:100%}.tiles{gap:6px}}@media(prefers-reduced-motion:no-preference){button{transition:background .12s}}
+</style>
+<style id="original-theme" media="not all">
+:root{--ink:#19243a;--muted:#63718a;--line:#dce4ee;--soft:#eef3f9;--blue:#245cdf;--navy:#111b2e;--gold:#ffa900;--green:#0a826f;background:#f2f6fb;font-size:13px}
+.top{background:var(--navy);border-bottom:1px solid #273851;gap:8px;min-height:56px;padding:7px 12px;flex-wrap:wrap}
+.top h1{font-size:18px;color:#ffbf25;letter-spacing:-.025em;white-space:nowrap}
+.top .pipe{width:1px;height:28px;background:#34425b}
+.top .sample{color:#bac8dc;font-size:11px;white-space:nowrap}
+.top button{font-size:11px;background:#1d2a41;color:#e4edfb;border-color:#46556d;padding:6px 8px}
+.top .top-danger{background:#472639;color:#ffdce5;border-color:#6e3b50}
+.top .top-health{padding:6px 8px;background:#123747;color:#80f7c2;border:1px solid #22605e;border-radius:4px;font-size:11px}
+.top .top-gold{background:#ffac15;color:#17233a;border-color:#ffb83d}
+.grid{margin:5px 7px 0;gap:5px;height:calc(100dvh - 90px);min-height:620px;grid-template-columns:minmax(182px,20fr) minmax(318px,36fr) minmax(432px,44fr)}
+.pane{border-radius:4px;border-color:#d6e0ed}
+.phead{padding:8px;background:#f1f6fc}.stack{gap:8px}
+.scroller{padding:8px;scrollbar-gutter:auto;align-content:start}
+#ticket-head h2{font-size:13px;color:#253b5e}
+#ticket-head label{margin-left:auto}
+#ticket-head select{font-size:11px;padding:4px}
+.tickets{padding:0;background:white}
+.tickets button.card{padding:9px 9px 10px;border:0;border-bottom:1px solid #e4ecf5;margin:0;border-radius:0}
+.tickets button.card[aria-pressed=true]{background:#fff8e4;border-left:3px solid #f3a923;padding-left:6px}
+.tickets .subject{color:#52647f}
+.ticketfoot{padding:0 0 5px;background:#f8faff}.ticketfoot h3{background:#152138;color:#eaf0fb;padding:6px 8px;font-size:12px}
+.ticketfoot button{display:block;border:none;border-bottom:1px solid #e3e9f2;border-radius:0;margin:0;background:#f8faff;padding:6px 8px;color:#2b3d57}
+#chat-head{background:white}#chat-head h2{font-size:13px}
+.chatbody{background:#afc0d0;padding:10px}
+.msg{max-width:95%;margin:8px 0;display:grid;grid-template-columns:26px 1fr;gap:0 6px;align-items:start}
+.msg b{grid-row:1/3;padding:4px 2px;text-align:center;font-size:10px;border-radius:4px;color:#876019;background:#fff3bf}
+.msg p,.msg.agent p{color:#172540;background:#eff6ff;border:1px dashed #789ad4;border-radius:5px}
+.msg.agent{margin-left:0}.msg.agent b{color:white;background:#8535d6}.msg.agent p{background:#f8f1ff;border-color:#b184dc}
+.msg span{grid-column:2;text-align:right;color:#314c68}
+.compose{padding:7px;background:#f6f9ff}.compose button{font-size:11px;padding:5px 6px}.compose input{font-size:12px}
+button{border-color:#c7d3e2;color:#223a66}button:hover{background:#eaf1fd}
+button.primary{background:var(--blue);border-color:var(--blue);color:white}button.primary:hover{background:#184cc4}
+button[data-action="filter:closed"].primary,.ticketfoot button.primary{background:var(--navy);border-color:var(--navy)}
+.chip{border-color:#c7d7ec;background:#e9f0ff;color:#2456aa}
+.chip.on{background:#dcf5ec;border-color:#b0e5d1;color:#10644e}
+.chip.amber{background:#fff2cc;border-color:#f3d487;color:#855407}.chip.red{background:#fff0ed;border-color:#f5c5bd;color:#9f241b}
+.chip.purple{background:#f2e8fe;border-color:#ddc4f8;color:#6930ac}
+.customer{background:#fff}.customer h2{font-size:14px}
+.orderbar{background:#f0f5fc}.orderbar .row:first-child{gap:4px}
+.tabs{gap:4px}.tabs button{font-size:11px;flex:1;padding:6px 4px}
+.box{border-color:#dbe6f1;padding:9px;border-radius:6px}.box h3{font-size:13px}
+.box.shade{background:#f7faff}
+.strip{background:#fff7e8;border-color:#efc577}
+.notice{background:#fff5f1;border-color:#efb9ad;border-left-color:#bc3c31;color:#742625}
+.work-ann{background:#13203a;color:#eaf0ff;border:1px solid #283853;border-radius:6px;padding:10px;display:grid;gap:8px}
+.work-ann .quiet{color:#b6c6dc}.work-ann strong{font-size:15px}.work-ann .chip{background:#4d422b;border-color:#8b6b30;color:#ffdc8e}
+.trackline{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}.trackline span{border-top:3px solid #51647d;padding:4px 0;color:#bbc9e0;font-size:11px}.trackline span.done{border-top-color:#ffbf28;color:#fff}
+.accordion{border:1px solid #d5e2ee;border-radius:6px;background:#fff;padding:8px}.accordion summary{cursor:pointer;font-weight:750}.accordion[open] summary{margin-bottom:9px}.accordion.green{border-color:#addfd0}.accordion.purple{border-color:#d5c8ed}
+.claim-hero{background:#19243a;border:1px solid #344464;border-radius:6px;padding:10px;color:#f4f7ff}.claim-hero .quiet{color:#c8d4e6}
+.claim-hero button.primary{background:#b72a23;border-color:#b72a23}
+.awards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.award{border:1px solid #efcf91;background:#fff7e5;border-radius:5px;padding:6px;font-size:11px}.award:nth-child(2){background:#eafff7;border-color:#9bd8c9}.award:nth-child(3){background:#f3edff;border-color:#d3c1fa}.award button{margin-top:4px;font-size:10px;padding:3px 6px}
+.balances{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}.balance{padding:6px 2px;text-align:center;border:1px solid #dbe3f2;border-radius:4px;background:#f5f8fc}.balance:nth-child(3){background:#fff8e7;border-color:#f3d58d}.balance:nth-child(4){background:#fff1ed;border-color:#f1c2bc}.balance small{display:block}
+.footer-actions{padding:5px 7px;background:#f2f6fc}.footer-actions button{font-size:11px;padding:4px 7px}
+.status{background:#152749}.dhead,.dfoot{background:#f0f5fd}.systemline{height:29px;padding:5px 10px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;color:#536884;font-size:10px;overflow:hidden}.systemline strong{color:#067b67}
+@media(max-width:940px){.grid{height:calc(100dvh - 125px);grid-template-columns:172px 303px 430px;overflow:auto}.top .pipe{display:none}.top .sample{white-space:normal}}
+</style>
+<style>
+[hidden]{display:none!important}
+.variants{min-height:44px;padding:6px 10px;background:#fff;border-bottom:1px solid #ccd6e3}.variants button{font-size:12px}
+body[data-mode="original"] .grid{height:calc(100dvh - 135px)}
+@media(max-width:940px){body[data-mode="original"] .grid{height:calc(100dvh - 165px)}}
+#workspace-pane{position:relative;min-width:0}
+#workspace-pane dialog{position:absolute;inset:auto;left:10px;top:10px;margin:0;z-index:4;width:85%;max-width:100%;max-height:76%;box-shadow:0 8px 22px #14243b45;overscroll-behavior:contain}
+#workspace-pane dialog.wide{width:89%}
+#workspace-pane dialog[open]{display:flex;flex-direction:column}
+#workspace-pane dialog .dcontent{min-height:0;max-height:none;overflow:auto;flex:1 1 auto}
+#workspace-pane .dhead,#workspace-pane .dfoot{flex:0 0 auto;flex-wrap:wrap}
+#workspace-pane .dhead{cursor:grab;touch-action:none;user-select:none}
+#workspace-pane .dhead.dragging{cursor:grabbing}
+#workspace-pane .dhead h2{flex:1;min-width:115px;font-size:15px}
+#workspace-pane .dhead button,#workspace-pane .dfoot button{font-size:12px}
+#workspace-pane .move-handle{cursor:grab}
+#workspace-pane .dcontent .filter input{width:125px}
+#workspace-pane .dcontent .scrolltable button{font-size:11px}
+#workspace-pane .dcontent .scrolltable th,#workspace-pane .dcontent .scrolltable td{padding:6px 4px}
+:root{--ink:#172c49;--muted:#536781;--line:#d7e3f0;--blue:#2356c5;--navy:#172841;--teal:#0e7462;--gold:#95600e;background:#edf3fa}
+.top{background:var(--navy);border-bottom:1px solid #324b68}.top button{background:#233a57;border-color:#637d9b;color:#fff}
+.nav button,.variants button{color:#213f67}.nav button.primary,.variants button.primary,button.primary{background:#2258c8;border-color:#2258c8;color:white}button.primary:hover{background:#1b46a4}
+button{border-color:#b6c9df;color:#223f65}button:hover{background:#eaf2ff}
+.grid,.grid.with-history{--ticket:minmax(158px,15fr);--chat:minmax(222px,26fr);--history:minmax(215px,23fr);--work:minmax(395px,59fr);grid-template-columns:var(--ticket) var(--chat) var(--work);gap:7px;overflow:auto}
+body[data-mode="original"] .grid{--ticket:minmax(150px,14fr);--chat:minmax(208px,23fr);--work:minmax(400px,63fr)}
+.grid.with-history{grid-template-columns:var(--ticket) var(--chat) var(--history) var(--work)}
+.pane,.box{border-color:var(--line)}.pane{background:#fbfdff}.phead,.orderbar{background:#f0f6ff}
+.customer{background:#fff}.tabs{gap:5px;margin-top:2px}.tabs button{flex:1 1 auto;font-size:12px}
+.tabs button[data-action="tab:claims"]{background:#fff1e0;color:#88440a;border-color:#eac69b}
+.tabs button[data-action="tab:claims"].primary{background:#9d4a13;color:#fff;border-color:#9d4a13}
+.tabs button[data-action="tab:benefits"]{background:#e8f7f1;color:#075b4b;border-color:#a9d9ca}
+.tabs button[data-action="tab:benefits"].primary{background:#116f5c;color:#fff;border-color:#116f5c}
+.tickets button.card[aria-pressed=true]{background:#e9f2ff;border-color:#8eace2;border-left:4px solid #3162ba}
+.chip{color:#28528a;background:#edf4ff;border-color:#bcd0ed}.chip.on{color:#0a5f4c;background:#e4f7ed;border-color:#abdcc9}
+.chip.channel-store,.chip.purple{color:#633a95;background:#f5edff;border-color:#d9c6f0}
+.chip.channel-sms,.chip.amber{color:#815006;background:#fff3d7;border-color:#eed298}
+.chip.red{color:#9d251c;background:#ffefec;border-color:#edb6af}
+body:not([data-mode="original"]) .chatbody{background:#edf4ff}
+body:not([data-mode="original"]) .msg p{border-color:#c8d8ee;color:#213756}
+body:not([data-mode="original"]) .msg.agent p{background:#2256ae;border-color:#2256ae;color:white}
+body:not([data-mode="original"]) .msg span{color:#496180}
+.compose{background:#f6faff}.footer-actions{background:#edf5ff}
+#workspace-pane #work{background:#f4f8fd;gap:10px;min-width:0}
+#workspace-pane #work>.tiles{align-items:start}.tiles,.awards,.balances{min-width:0}.tiles>*,.balances>*,.awards>*{min-width:0}
+.box.shade{background:#edf5ff}.box h3{color:#203f69}.box.tone-orders{border-left:3px solid #4270c0}
+.box.tone-claims{border-left:3px solid #c07823;background:#fffcf7}.box.tone-benefits{border-left:3px solid #238b75;background:#f8fdfb}
+.strip{background:#fff7e5;border-color:#e0b674}.notice{background:#fff6ee;border-color:#ebc1a3;border-left-color:#b05e27;color:#793b21}
+th{background:#edf4ff}.selected td{background:#eaf2ff}
+.work-ann{background:#1c3557;color:#fff;border:1px solid #2d4c75;border-radius:7px;padding:11px;display:grid;gap:7px}.work-ann .quiet{color:#d3e2f6}.work-ann strong{font-size:16px}.work-ann .chip{color:#674500;background:#ffe9b2;border-color:#f2cf78}
+.trackline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}.trackline span{border-top:3px solid #6783a3;color:#dae8fa;font-size:11px;padding:4px 0}.trackline .done{border-color:#ffd158;color:#fff}
+.accordion{border:1px solid #c9dbef;border-radius:6px;background:#f6faff;padding:8px}.accordion summary{cursor:pointer;font-weight:750;color:#283f67}.accordion[open] summary{margin-bottom:8px}.accordion.green{border-color:#addcce;background:#f1fbf8}.accordion.purple{border-color:#d9c8ed;background:#f9f4ff}.accordion.claim-group{border-color:#edc698;background:#fff9ee}
+.awards,.balances{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:5px}.award,.balance{border:1px solid #d7e3f3;background:#edf4ff;padding:7px;border-radius:5px;font-size:11px}.award:nth-child(2),.balance:nth-child(2){background:#eaf9f4;border-color:#b9dece}.award:nth-child(3),.balance:nth-child(3){background:#f4edff;border-color:#dbcaef}.balance small{display:block}.award button{margin-top:4px}
+.claim-hero{border:1px solid #e7bd8b;background:#fff3de;border-radius:6px;padding:10px;color:#693b12}.claim-hero .quiet{color:#795230}.claim-hero button.primary{background:#a04421;border-color:#a04421}
+.work-snapshot{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:6px}
+.work-snapshot>div{border:1px solid #d2e1f2;border-radius:5px;background:#f4f8ff;padding:7px;display:grid}
+.work-snapshot small{font-size:11px}.work-snapshot strong{font-size:13px}
+.history-pane{border:1px solid #91b3dc;min-width:0;background:#f6faff}
+.history-pane .phead{background:#e3effe}.history-pane .phead h2{font-size:14px;color:#1d416f}
+.history-pane .history-content{background:#f5f9ff}.history-message{margin:9px 0}.history-message p{padding:8px;background:#fff;border:1px solid #d3e0ef;border-radius:6px;overflow-wrap:anywhere}.history-message.agent p{background:#e4efff;border-color:#bed2ec}.history-message span{font-size:11px;color:#415d80}
+.ticketfoot button[aria-pressed=true]{background:#dceaff;border-color:#8daeda}
+dialog::backdrop{background:transparent}
+#workspace-pane dialog{box-shadow:0 8px 24px #24406a3b}
+@media(max-width:900px){.grid{--ticket:158px;--chat:222px;--history:215px;--work:minmax(385px,1fr)}body[data-mode="original"] .grid{--ticket:150px;--chat:208px;--work:minmax(385px,1fr)}}
+
+#messages,#chat-head,#composer,.history-pane .history-content{background:#fff}
+#messages .msg p{background:#fff;color:#213044;border:1px solid #d7dfe9}
+#messages .msg.agent p{background:#f2f4f7;color:#213044;border:1px solid #d7dfe9}
+#messages .msg span{color:#526174}
+.tickets button.card.initial-alert{animation:ticket-alert .85s ease-in-out 3}
+@keyframes ticket-alert{50%{background:#fff2c9;box-shadow:inset 0 0 0 2px #a76c12}}
+@media(prefers-reduced-motion:reduce){.tickets button.card.initial-alert{animation:none;box-shadow:inset 0 0 0 2px #a76c12}}
+body[data-mode="original"] .grid{height:calc(100dvh - 184px)}
+@media(max-width:940px){body[data-mode="original"] .grid{height:calc(100dvh - 214px)}}
+#nav{background:#20584d;border:0;padding:4px 12px;gap:4px;min-height:43px;overflow:auto;flex-wrap:nowrap}
+#nav button{color:#f2f9f5;background:transparent;border:0;padding:8px 12px}
+#nav button:hover{background:#326b60}
+#nav button[aria-current="page"]{background:#eafff6;color:#143e36;box-shadow:inset 0 -3px 0 #76bca4}
+#reference-page{margin:10px;min-height:calc(100dvh - 155px);background:#fff;border:1px solid #d3e3df;border-radius:8px;padding:16px;position:relative}
+.aux-title{margin:0 0 14px;font-size:21px;color:#173e35}
+.aux-sub{color:#526d66;font-size:12px}.aux-grid{display:grid;grid-template-columns:minmax(415px,3fr) minmax(235px,1fr);gap:12px;min-height:490px}
+.aux-box{border:1px solid #d6e6df;border-radius:7px;padding:11px;background:#fff;min-width:0}
+.aux-preview{background:#f6fbf8;max-height:630px;overflow:auto}.aux-preview .msg{max-width:100%;display:block}.aux-preview .msg.agent{margin-left:14px}.aux-preview .msg p{background:#fff;color:#213044;border:1px solid #d4e4dd}
+.aux-empty{display:grid;align-content:center;justify-items:center;min-height:300px;color:#536c66;text-align:center}
+.table-control{display:block;width:100%;text-align:left;white-space:normal;padding:3px 4px;border:0;background:none;font-weight:650}
+.aux-table{margin-top:8px}.aux-table tbody tr:nth-child(even) td{background:#f6faf8}.aux-table tbody tr.selected td{background:#fff4d8}.aux-table td:last-child,.aux-table th:last-child{text-align:left}
+.aux-table tr[data-ticket-preview]{cursor:pointer}.aux-table tr[data-ticket-preview]:hover td{background:#edf6f1}.aux-table th{background:#e9f4ef;color:#275349}.aux-table td{overflow-wrap:anywhere}
+.aux-filter{gap:8px}.aux-filter label{display:grid;gap:3px;color:#47655e;font-size:11px}.aux-filter input,.aux-filter select{min-height:32px}
+.aux-pagination{justify-content:center;margin:13px 0 0}.aux-pagination button{padding:4px 9px}
+.quick-chat{max-height:35%;overflow:auto;border-top:1px solid #c4ddd4;padding:8px;background:#f5faf7}
+.quick-chat .quick-header{background:#e3f2e9;padding:5px 6px;border-radius:5px}
+.quick-chat button{white-space:normal;text-align:left}.quick-chat .quick-item{width:100%;margin-top:5px}
+.quick-manage-form textarea,.quick-detail{white-space:pre-wrap;overflow-wrap:anywhere}
+.quick-editor{margin-top:10px;border-left:3px solid #4e8c78}.quick-error{color:#9f241b}
+.quick-list .row button{font-size:11px}
+.ref-pills button.primary,.aux-box .primary{background:#20584d;border-color:#20584d}
+.doc-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.doc-steps .box{background:#f1f8f4}
+@media(max-width:760px){.aux-grid{grid-template-columns:1fr}.aux-preview{min-height:180px}.doc-steps{grid-template-columns:1fr}}
+#recent{max-height:45%;overflow:auto;flex-shrink:0}
+#recent button[data-action="history-more"]{text-align:center;background:#edf5ff;border:1px solid #bdd0e6}
+</style>
+</head>
+<body>
+<header class="top row between" id="ab-header"><h1>이마트 온라인 커머스 상담 BO</h1><div class="row"><span class="top-health chip on">● AICC 연동 · 샘플</span><button data-action="online" id="online"></button><button data-action="agent">홍길동 상담사 ▾</button></div></header>
+<header class="top row between" id="c-header" hidden>
+<div class="row"><h1>e-mart CS 콘솔</h1><span class="pipe"></span><span class="sample">통합 옴니채널 상담 BO (SSG.COM / AICC APP 2.0)</span></div>
+<div class="row"><span class="top-health">● 시스템 정상 · 샘플</span><button class="top-gold" data-action="store-contact">점포 연락처</button></div>
+<div class="row"><button data-action="online" id="online-c"></button><button data-action="agent">상담원 · 김영기</button><button data-action="manual">커머스 상담 가이드</button><button class="top-danger" data-action="end">상담 종료</button></div>
+</header>
+<div class="variants row between"><div id="layouts" class="row" aria-label="BO 시안 전환"></div><div class="row"><span class="quiet">검토용 가상 데이터</span><button data-action="compare">시안 비교</button></div></div>
+<nav class="nav row" aria-label="업무 메뉴" id="nav"></nav>
+<main class="grid" id="consultation-grid" aria-label="상담 업무 화면">
+<aside class="pane"><div class="phead stack" id="ticket-head"></div><div class="scroller tickets" id="tickets"></div><div class="ticketfoot" id="recent"></div></aside>
+<section class="pane" aria-label="채팅"><div class="phead stack" id="chat-head"></div><div class="scroller chatbody" id="messages" aria-live="polite"></div><aside class="quick-chat" id="quick-chat" aria-label="빠른답변 선택" hidden></aside><div class="compose stack" id="composer"></div></section>
+<aside class="pane history-pane" id="history-pane" aria-label="과거 상담" hidden><div class="phead stack" id="history-head"></div><div class="scroller history-content" id="history-content"></div></aside>
+<section class="pane" id="workspace-pane" aria-label="고객 및 주문 업무"><div class="phead customer" id="customer"></div><div class="phead orderbar" id="orderbar"></div><div class="scroller stack" id="work"></div><div class="footer-actions row" id="work-footer"></div><dialog id="dialog" aria-labelledby="dialog-title"><header class="dhead" id="dialog-handle"><button type="button" class="move-handle" id="move-dialog" aria-label="업무 창 이동, 방향키 사용" title="제목줄을 드래그하거나 방향키로 이동">↔ 이동</button><h2 id="dialog-title"></h2><button data-action="close" aria-label="닫기">닫기 ×</button></header><div class="dcontent" id="modal-body"></div><footer class="dfoot" id="modal-footer"></footer></dialog></section>
+</main>
+<main id="reference-page" aria-label="공통 업무 화면" hidden></main>
+<footer class="systemline" id="c-footer" hidden><span>SSG.COM Omni-CS</span><span>AICC <strong>샘플</strong></span><span>배송 추적 · 바로배송 / 근거리배송 / 스캔앤딜리버리</span><span>상담과 주문 처리에 가상 데이터가 사용됩니다.</span></footer>
+
+<div class="status" id="status" role="status"></div>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const clean=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const won=n=>Number(n).toLocaleString('ko-KR')+'원';
+const btn=(text,action,primary=false,attrs='')=>`<button type="button" class="${primary?'primary':''}" data-action="${action}" ${attrs}>${text}</button>`;
+const chip=(text,active=false,tone='')=>`<span class="chip ${active?'on':''} ${tone}">${text}</span>`;
+const channelChip=channel=>chip(channel,false,channel==='점포 챗봇'?'channel-store':channel==='문자 링크'?'channel-sms':'');
+const statusChip=text=>chip(text,false,/결품|환불 접수/.test(text)?'red':/완료/.test(text)?'on':/대기|준비/.test(text)?'amber':'');
+const topicPanel=(label,body,tone)=>`<section class="box tone-${tone}"><h3>${label}</h3>${body}</section>`;
+const panel=(label,body,shade=false)=>`<section class="box ${shade?'shade':''}"><h3>${label}</h3>${body}</section>`;
+const kv=items=>`<dl class="kv">${items.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`;
+const customers={
+  member:{name:'김나연',id:'be12***',phone:'010-****-1234',login:'앱 로그인 확인',verify:'휴대폰 미인증',app:true,verified:false,grade:'VIP'},
+  phone:{name:'이민수',id:'',phone:'010-****-5678',login:'앱 비로그인',verify:'휴대폰 인증 완료',app:false,verified:true,grade:'미연결'},
+  guest:{name:'미확인 고객',id:'',phone:'미확인',login:'앱 비로그인',verify:'휴대폰 미인증',app:false,verified:false,grade:'미확인'}
+};
+const item=(name,sku,qty,price,status,action='')=>({name,sku,qty,price,status,action});
+const orders=[
+ {id:'20261126-04124',owner:'member',date:'2026-11-26',type:'근거리배송',status:'상품 준비 중',store:'역삼점',eta:'오늘 16:00~17:30',time:'11:00',items:[item('신선특급 딸기 750g','P001',1,15900,'결품','환불'),item('피코크 우삼겹 600g','P002',1,17880,'준비 중','취소'),item('노브랜드 생수 2L 묶음','P003',1,15000,'준비 중','취소')]},
+ {id:'20261126-05236',owner:'member',date:'2026-11-26',type:'바로배송',status:'결제 완료',store:'역삼점',eta:'배정 전',time:'12:02',items:[item('노브랜드 사과주스 1L','P010',2,4900,'준비 전','취소'),item('이마트 현미 1kg','P011',1,8900,'준비 전','취소')]},
+ {id:'20261119-07480',owner:'member',date:'2026-11-19',type:'바로배송',status:'배송 완료',store:'역삼점',eta:'11.19 17:08 도착',time:'16:17',items:[item('반려견 사료 2kg','P004',2,22900,'배송 완료','반품'),item('노브랜드 생수 2L 묶음','P005',1,12800,'배송 완료','반품')]},
+ {id:'20261110-00812',owner:'member',date:'2026-11-10',type:'스캔앤딜리버리',status:'배송 완료',store:'성수점',eta:'11.10 18:22 도착',time:'14:20',items:[item('이마트 키친타월 6롤','P006',1,9990,'반품·환불 완료'),item('주방 세제 1L','P007',1,14900,'배송 완료')]},
+ {id:'20260914-06220',owner:'member',date:'2026-09-14',type:'근거리배송',status:'배송 완료',store:'성수점',eta:'09.14 15:34 도착',time:'13:14',items:[item('유기농 현미 2kg','P008',1,19800,'배송 완료')]},
+ {id:'20261125-03840',owner:'phone',date:'2026-11-25',type:'바로배송',status:'배송 중',store:'은평점',eta:'오늘 13:00~14:00',time:'10:39',items:[item('노브랜드 생수 2L 묶음','P009',1,11900,'배송 중')]}
+];
+const tickets=[
+ {id:'2379009',channel:'문자 링크',topic:'기타',title:'결제 확인 문의',time:'12:15',owner:'guest',state:'대기',order:null,messages:[['고객','결제가 되었는지 궁금합니다.','12:15']],assigned:false},
+ {id:'2378992',channel:'앱',topic:'결품·환불',title:'딸기가 품절됐어요',time:'12:11',owner:'member',state:'상담 중',order:'20261126-04124',messages:[['고객','딸기가 결품이라고 안내받았어요. 같이 주문한 생수는 배송되나요?','12:11'],['상담사','딸기와 생수의 배송 상태를 각각 확인하겠습니다.','12:12'],['고객','딸기만 환불해 주세요. 지난주에 주문한 사료도 한 개 반품하고 싶어요.','12:13']]},
+ {id:'2378971',channel:'점포 챗봇',topic:'배송',title:'배송이 언제 오나요?',time:'12:09',owner:'phone',state:'대기',order:'20261125-03840',messages:[['고객','배송이 언제 도착하나요?','12:09']]},
+ {id:'2378946',channel:'문자 링크',topic:'교환',title:'영수증 없이 교환 문의',time:'12:05',owner:'guest',state:'대기',order:null,messages:[['고객','영수증이 없는데 교환이 가능한가요?','12:05']]},
+ {id:'2378910',channel:'앱',topic:'혜택',title:'쿠폰 적용 문의',time:'12:02',owner:'member',state:'상담 중',order:'20261126-05236',messages:[['고객','지난 주문에 쿠폰이 적용됐나요?','12:02']]},
+ {id:'2364731',channel:'앱',topic:'배송',title:'배송 주소를 바꿨어요',time:'11.21',owner:'member',state:'종료',order:'20261119-07480',messages:[['상담사','배송지 확인을 마쳤습니다.','11:20']]}
+];
+const recent=[
+ {id:'2364731',channel:'음성',topic:'배송 문의',date:'11.21',owner:'member',summary:'고객이 변경한 배송지의 반영 여부를 문의함. 변경 주소가 주문에 적용된 것을 확인하고 오후 5시 전후 도착 예정이라고 안내함.'},
+ {id:'2363892',channel:'채팅',topic:'교환 문의',date:'11.18',owner:'member',messages:[['고객','받은 상품의 포장이 찢어졌어요. 교환할 수 있을까요?','14:22'],['상담사','상품과 주문번호를 확인한 뒤 교환 접수 절차를 안내드리겠습니다.','14:24'],['고객','확인했습니다. 사진을 준비할게요.','14:25']]},
+ {id:'2356271',channel:'1:1',topic:'혜택 문의',date:'11.09',owner:'member',messages:[['고객','전에 받은 쿠폰이 이번 주문에 적용되는지 궁금합니다.','09:13'],['상담사','쿠폰 상세에서 적용 가능 상품과 최소 주문 금액을 확인해 주세요.','10:10']]},
+ {id:'2352103',channel:'채팅',topic:'결제 문의',date:'11.06',owner:'member',messages:[['고객','결제 영수증은 어디서 확인하나요?','16:12'],['상담사','앱 주문 내역에서 주문을 선택한 뒤 결제 상세의 영수증을 확인하실 수 있습니다.','16:14']]},
+ {id:'2348931',channel:'음성',topic:'주문 상품 문의',date:'11.03',owner:'member',summary:'고객이 주문 상품의 구성과 수량을 문의함. 주문 상세 내역을 확인하고 상품별 수량을 안내함.'},
+ {id:'2364965',channel:'채팅',topic:'배송 문의',date:'11.20',owner:'phone',messages:[['고객','주문한 상품 출발했나요?','15:41'],['상담사','점포에서 배송기사에게 인계했습니다.','15:43']]}
+];
+const claims=[{id:'BO-00812',order:'20261110-00812',sku:'P006',name:'이마트 키친타월 6롤',amount:9990,qty:1,type:'반품',reason:'상품 불량',status:'환불 완료'}];
+const state={mode:'tabs',nav:'내 티켓',channel:'전체',tab:'order',filter:'open',ticket:tickets[1],order:orders[0],index:0,online:true,notes:{},drafts:{},comp:[],modal:'',pending:null,history:null,historyExpanded:false,summaryOpen:new Set(),initialAlert:true,};
+const total=o=>o?.items.reduce((a,i)=>a+i.price*i.qty,0)??0;
+const customer=()=>customers[state.ticket.owner];
+const currentItem=()=>state.order?.items[state.index];
+const ownOrders=()=>orders.filter(o=>o.owner===state.ticket.owner);
+const related=()=>claims.filter(c=>c.order===state.order?.id);
+const claimOn=item=>related().find(c=>c.sku===item?.sku||c.items?.some(line=>line.sku===item?.sku));
+const remaining=item=>{
+ const claim=claimOn(item);
+ return item?.qty-(claim?.items?.find(line=>line.sku===item?.sku)?.qty??claim?.qty??0);
+};
+const claimAvailable=(item,type)=>!!item&&item.action===type&&!claimOn(item)&&remaining(item)>0;
+let toastTimer;
+function toast(text){$('status').textContent=text;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('status').textContent='',4400);}
+function setTicket(ticket){
+ close();
+ state.initialAlert=false;
+ if(ticket.owner!==state.ticket.owner){state.history=null;state.historyExpanded=false;}
+ state.summaryOpen.clear();
+ state.ticket=ticket;state.order=orders.find(o=>o.id===ticket.order)??null;state.index=0;state.tab='order';render();
+}
+function setOrder(order){close();state.summaryOpen.clear();state.order=order;state.index=0;state.tab='order';render();$('work').scrollTop=0;}
+function time(){return new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',hour12:false});}
+function renderNav(){abRenderNav();}
+function renderTickets(){
+ (state.mode==='original'?originalRenderTickets:abRenderTickets)();
+ if(state.initialAlert)document.querySelector('#tickets .card')?.classList.add('initial-alert');
+}
+function renderChat(){(state.mode==='original'?originalRenderChat:abRenderChat)();}
+function renderRight(){(state.mode==='original'?originalRenderRight:abRenderRight)();}
+function render(){renderNav();renderTickets();renderChat();renderRight();renderHistoryPane();managedPage();renderQuickChat();}
+function noOrder(){
+ return panel('주문 조회',`<p class="muted">${customer().app||customer().verified?'과거 주문 조회에서 상담할 주문을 선택해 주세요.':'고객과 주문의 연결이 확인되면 목록을 조회합니다.'}</p><br>${btn('과거 주문 조회','history',true)}`);
+}
+function processArea(){
+ const i=currentItem(), c=claimOn(i);
+ if(!i)return '';
+ return `<div class="strip row between"><div><div class="quiet">선택 상품</div><strong>${i.name}</strong><div>${c?'처리 상태 '+c.status:i.action?i.action+' 가능 · '+won(i.price)+' / 개':'상태 '+i.status}</div></div>${c?btn('처리 이력','claim-log'):i.action?btn(i.action==='반품'?'반품 접수':i.action+' 내용 확인','claim:'+i.action,true):btn('처리 기준 보기','policy')}</div>`;
+}
+function productTable(){
+ return '<div class="scrolltable"><table><thead><tr><th>상품</th><th>수량</th><th>상태</th><th>결제액</th></tr></thead><tbody>'+state.order.items.map((i,index)=>{
+  const c=claimOn(i);
+  return `<tr class="${index===state.index?'selected':''}"><td>${btn(i.name,'item:'+index,index===state.index,`aria-pressed="${index===state.index}"`)}</td><td>${i.qty}</td><td class="nowrap">${statusChip(c?.status||i.status)}</td><td class="nowrap">${won(i.price*i.qty)}</td></tr>`;
+ }).join('')+'</tbody></table></div>';
+}
+function address(){
+ const o=state.order;
+ return panel('배송지 · 연락처 · 요청사항',kv([['배송지','서울 마포구 '+clean(o.address||'성산동 **')],['연락처',customer().phone],['요청사항','부재 시 문 앞']])+
+ '<hr><div class="row compact">'+btn('상세 주소 변경','address',true)+btn('문자 발송','sms',true)+(o.status!=='배송 완료'?btn('배송 요청사항','delivery-request'):'')+'</div>');
+}
+function historyTable(entries){
+ if(!entries.length)return '<p class="quiet">등록된 처리 이력이 없습니다.</p>';
+ return '<div class="scrolltable"><table><thead><tr><th>접수번호 · 상품</th><th>수량</th><th>처리 상태</th><th>환불액</th><th>상세</th></tr></thead><tbody>'+entries.map(c=>`<tr><td>${c.id} · ${c.name}<br><small>${c.type} · ${c.reason}</small></td><td>${c.qty}</td><td>${c.status}</td><td>${won(c.amount)}</td><td>${btn('상세 보기','claim-detail:'+c.id)}</td></tr>`).join('')+'</tbody></table></div>';
+}
+function benefitsBody(){
+ if(!customer().app)return '<p class="notice">회원 계정 연결을 확인한 뒤 혜택을 조회할 수 있습니다.</p>';
+ return kv([['쿠폰','3장 · 가장 빠른 만료 12.03'],['e머니','12,450원'],['신세계포인트','8,420P'],['이마티콘','30,000원']])+'<hr>'+btn('프로모션','promo');
+}
+function historyList(){
+ const list=recent.filter(record=>record.owner===state.ticket.owner);
+ const visible=state.historyExpanded?list:list.slice(0,3);
+ const rows=visible.map(record=>btn(record.channel+' · '+record.topic+'　'+record.date,'recent:'+record.id,false,`aria-controls="history-pane" aria-pressed="${state.history?.id===record.id}"`)).join('');
+ const more=list.length>3?btn(state.historyExpanded?'접기':'더 보기 ('+(list.length-3)+'건)','history-more',false,`aria-controls="history-rows" aria-expanded="${state.historyExpanded}"`):'';
+ $('recent').innerHTML='<h3>최근 상담 이력</h3><div class="history-rows" id="history-rows">'+(rows||'<p class="quiet">연결된 상담 이력이 없습니다.</p>')+'</div>'+more;
+}
+function renderHistoryPane(){
+ const record=state.history;
+ $('history-pane').hidden=!record;
+ document.querySelector('.grid').classList.toggle('with-history',!!record);
+ if(!record)return;
+ $('history-head').innerHTML=`<div class="row between"><h2>과거 상담</h2>${btn('닫기 ×','history-close',false,'aria-label="과거 상담 창 닫기"')}</div><strong>${record.topic}</strong><span class="quiet">${record.date} · ${record.channel} · #${record.id}</span>`;
+ $('history-content').innerHTML=record.channel==='음성'?
+  '<section class="box stack"><h3>상담사 요약</h3><p>'+clean(record.summary)+'</p></section>':
+  record.messages.map(([who,message,at])=>`<div class="history-message ${who==='상담사'?'agent':''}"><span>${who} · ${at}</span><p>${clean(message)}</p></div>`).join('');
+ $('history-content').scrollTop=0;
+}
+function originalRenderTickets(){
+ const all=tickets.filter(t=>state.nav==='전체 티켓'||t.assigned!==false||t===state.ticket);
+ const list=all.filter(t=>state.filter==='open'?t.state!=='종료':['대기','종료'].includes(t.state));
+ $('ticket-head').innerHTML=`<div class="row between"><h2>${state.nav}</h2><span class="quiet">${all.length}건</span></div><div class="row">${btn('진행 '+all.filter(t=>t.state==='상담 중').length,'filter:open',state.filter==='open')}${btn('대기·종료','filter:closed',state.filter==='closed')}</div>`;
+ $('tickets').innerHTML=list.map(ticket=>`<button class="card" type="button" data-action="ticket:${ticket.id}" aria-pressed="${ticket===state.ticket}"><div class="row">${channelChip(ticket.channel)}<small>${ticket.topic}</small></div><div class="subject">${ticket.title}</div><div class="row between quiet"><span>#${ticket.id} · ${ticket.state}</span><span>${ticket.time}</span></div></button>`).join('')||'<p class="quiet">해당하는 티켓이 없습니다.</p>';
+ historyList();
+}
+function originalRenderChat(){
+ const t=state.ticket, locked=t.state==='종료';
+ $('chat-head').innerHTML=`<div class="row compact between"><h2>상담 분류 (APP 2.0)</h2><span class="quiet">#${t.id}</span>${chip(t.state,true)}</div><div class="row compact"><label class="row quiet">문의 분류 <select id="topic">${['결품·환불','배송','교환','혜택','기타'].map(c=>`<option ${t.topic===c?'selected':''}>${c}</option>`).join('')}</select></label>${btn('CID 연동','customer')}${btn('이관','transfer',false,locked?'disabled':'')}</div><div class="notice row between"><strong>상담 모니터링</strong><span>대화 상태 확인</span>${btn('안내 문구','quick')}</div>`;
+ const messages=[['상담사','채팅 상담을 시작합니다. 대화 내용은 상담 이력에 저장됩니다.',''],...t.messages];
+ $('messages').innerHTML=messages.map(([who,message,at])=>`<div class="msg ${who==='상담사'?'agent':''}"><b>${who==='상담사'?'EM':'고객'}</b><p>${clean(message)}</p>${at?'<span>'+at+'</span>':''}</div>`).join('');
+ $('messages').scrollTop=$('messages').scrollHeight;
+ $('composer').innerHTML=`<div class="row">${btn('자주 쓰는 답변','quick')}${btn('취소·반품·환불','claim',false,locked?'disabled':'')}${btn('첨부','attach')}${btn('문자 발송','sms')}</div><form id="chat-form" class="row"><input id="chat-input" autocomplete="off" aria-label="메시지" placeholder="메시지를 입력해 주세요" value="${clean(state.drafts[t.id]||'')}" ${locked?'disabled':''}><button class="primary" type="submit" ${locked?'disabled':''}>전송</button></form>`;
+}
+function originalRenderRight(){
+ const c=customer(),o=state.order;
+ $('customer').innerHTML=`<div class="row between compact"><h2>상담사 BO 및 AICC</h2><div class="row">${btn('상품검색','catalog',true)}${btn('즉시 취소·환불','claim')}${btn('CS 보상 지급','comp')}</div></div>`;
+ const tabs=[['order','1. 주문·배송'],['claims','2. 취소·반품·보상'],['benefits','3. 고객·배송지·장바구니'],['overview','통합 보기']];
+ $('orderbar').innerHTML=`<div class="tabs row">${tabs.map(([id,label])=>btn(label,'tab:'+id,state.tab===id,`aria-pressed="${state.tab===id}"`)).join('')}</div><div class="row between" style="margin-top:7px"><span class="quiet">${c.name} · ${o?.id||'주문 미선택'}</span><div class="row compact">${o&&o.id!==state.ticket.order&&state.ticket.order?btn('문의 주문으로','origin'):''}${btn('과거 주문 조회','history')}${orderCancelButton()}</div></div>`;
+ $('work').innerHTML=({order:tabOrder,claims:tabClaims,benefits:tabBenefits,overview}[state.tab])();
+ $('work-footer').innerHTML=btn('상담 메모','note')+btn('보상 이력','comp-log')+btn('1:1 문의','inquiry');
+}
+function orderBanner(){
+ const o=state.order;
+ const cancelled=o.status.startsWith('취소');
+ const labels=['상품 준비','패킹·검수','배송 출발','배송 완료'];
+ const stage=o.status==='배송 완료'?3:o.status==='배송 중'?2:0;
+ return `<section class="work-ann"><div class="row between"><strong>${o.id}</strong>${chip(o.status)}</div><div class="quiet">결제일 ${o.date} · ${o.store} · ${won(total(o))} · ${o.type}</div>${cancelled?'':'<div class="trackline">'+labels.map((label,i)=>`<span class="${i<=stage?'done':''}">${label}</span>`).join('')+'</div>'}</section>`;
+}
+function deliveryGroups(){
+ const o=state.order;
+ const entries=[
+  ['바로배송','실시간 주문·송장', '', '송장과 현재 배송 위치를 확인합니다.'],
+  ['근거리배송','기사 배정 및 관제','green','배정 현황과 도착 예정 시간을 확인합니다.'],
+  ['스캔앤딜리버리','매장 스캔·배송 인계','purple','점포 스캔과 배송 인계 내역을 확인합니다.']
+ ];
+ return entries.map(([kind,title,css,description])=>{
+  const active=o.type===kind;
+  return `<details class="accordion ${css}" ${active?'open':''}><summary>${kind} · ${title}　${active?chip('선택 주문',true):''}</summary>${active?kv([['현재 상태',o.status],['처리 점포',o.store],['도착 시간',o.eta]])+'<hr><div class="row compact">'+btn('상세 추적','tracking',true)+btn('신청서 보기','delivery-request')+btn('점포 연락처','store-contact')+'</div>':'<p class="quiet">'+description+' 이 유형의 주문을 선택하면 상세를 확인할 수 있습니다.</p>'}</details>`;
+ }).join('');
+}
+function tabOrder(){
+ if(!state.order)return noOrder();
+ return orderBanner()+panel('주문 상품 · 상태 및 결제',productTable()+'<hr><div class="row compact">'+btn('결제상세','payment')+btn('영수증 보기','receipt')+'</div>')+processArea()+deliveryGroups();
+}
+function tabClaims(){
+ if(!state.order)return noOrder();
+ const i=currentItem(),c=claimOn(i);
+ const options=['사과 쿠폰','배송 지연 보상 e머니','이마티콘'];
+ return `<section class="claim-hero"><div class="row between"><div><div class="quiet">선택 상품 · ${state.order.id}</div><strong>${i.name}</strong></div><strong>${won(i.price)}</strong></div><div class="row between" style="margin-top:7px"><span>${c?.status||i.status}</span>${c?btn('처리 이력','claim-log'):i.action?btn(i.action+' 내용 확인','claim:'+i.action,true):btn('처리 기준','policy')}</div></section>`+
+ topicPanel('결제수단별 환불 예상 내역',kv([['신용카드',won(i.price)+' / 개'],['e머니','적용 내역 없음'],['신세계포인트','적용 내역 없음']]),'claims')+panel('환불·반품 대상 상품',productTable())+
+ topicPanel('CS 고객 보상',`<div class="awards">${options.map((label,index)=>`<div class="award"><strong>${label}</strong><div>${index===1?'3,000원 예시':'3,000원 / 5,000원 예시'}</div>${btn('보상 접수','comp-option:'+index)}</div>`).join('')}</div><hr>${btn('최근 지급 이력','comp-log')}`,'claims')+
+ panel('반품·환불 처리 이력',historyTable(related()));
+}
+function tabBenefits(){
+ const c=customer();
+ let rest='';
+ if(c.app){
+ const values=[['이마티콘 잔액','30,000원'],['이마트 e머니','12,450원'],['신세계포인트','8,420P'],['보유 쿠폰','3장']];
+ rest=panel('실시간 복합 결제 수단 및 혜택 잔액',`<div class="balances">${values.map(([label,value])=>`<div class="balance"><small>${label}</small><strong>${value}</strong></div>`).join('')}</div><hr>${btn('혜택 상세','benefits')}`)+panel('현재 장바구니 상품 (2종)',kv([['노브랜드 생수 2L 묶음','1개'],['피코크 우삼겹 600g','1개']])+'<hr>'+btn('장바구니 상세','cart'))+
+ panel('기간별 프로모션 참여 이력',`<div class="row between"><span>신선식품 고객 행사</span>${btn('프로모션 보기','promo')}</div>`);
+ }
+ return topicPanel('CID 기반 고객 통합 상세 정보',kv([['고객명 · 등급',c.name+' · '+c.grade],['연락처',c.phone],['고객 식별',chip(c.login,c.app)+' '+chip(c.verify,c.verified)],['진입 경로',state.ticket.channel]])+'<hr><div class="row">'+btn('고객 상세','customer')+btn('문자 발송','sms')+'</div>','benefits')+
+ (state.order?address():'')+rest;
+}
+function overview(){
+ if(!state.order)return noOrder()+tabBenefits();
+ return orderBanner()+deliveryGroups()+panel('취소·반품·환불 및 CS 보상',processArea()+'<hr><div class="row">'+btn('고객보상','comp')+btn('처리 이력','claim-log')+'</div>')+tabBenefits();
+}
+
+function abRenderNav(){
+ $('online').textContent=state.online?'온라인 ●':'오프라인 ○';
+ $('layouts').innerHTML=btn('A안 · 업무 탭형','mode:tabs',state.mode==='tabs',`aria-pressed="${state.mode==='tabs'}"`)+btn('B안 · 한 화면 요약형','mode:summary',state.mode==='summary',`aria-pressed="${state.mode==='summary'}"`)+btn('C안 · 원본 4화면형','mode:original',state.mode==='original',`aria-pressed="${state.mode==='original'}"`);
+ $('ab-header').hidden=state.mode==='original';
+ $('c-header').hidden=state.mode!=='original';
+ $('c-footer').hidden=state.mode!=='original';
+ $('online-c').textContent=state.online?'● 온라인':'○ 오프라인';
+ $('original-theme').media=state.mode==='original'?'all':'not all';
+ document.body.dataset.mode=state.mode;
+ $('nav').innerHTML=sharedNav.map(([key,label])=>btn(label,'nav:'+key,state.nav===key,state.nav===key?'aria-current="page"':'')).join('');
+}
+
+function abRenderTickets(){
+ const base=tickets.filter(t=>state.nav==='전체 티켓'||t.assigned!==false||t===state.ticket);
+ const show=base.filter(t=>(state.filter==='closed'?t.state==='종료':t.state!=='종료')&&(state.channel==='전체'||t.channel===state.channel));
+ $('ticket-head').innerHTML=`<h2>${state.nav==='전체 티켓'?'전체 티켓':'내 티켓'}</h2><div class="row">${btn('진행 '+base.filter(t=>t.state!=='종료').length,'filter:open',state.filter==='open')}${btn('종료 '+base.filter(t=>t.state==='종료').length,'filter:closed',state.filter==='closed')}</div><label class="quiet">진입 경로 <select id="channel" aria-label="진입 경로">${['전체','앱','점포 챗봇','문자 링크'].map(c=>`<option ${c===state.channel?'selected':''}>${c}</option>`).join('')}</select></label>`;
+ $('tickets').innerHTML=show.map(t=>`<button class="card" type="button" data-action="ticket:${t.id}" aria-pressed="${t===state.ticket}"><div class="row">${channelChip(t.channel)} <small>${t.topic}</small></div><div class="subject">${t.title}</div><div class="row between quiet"><span>#${t.id} · ${t.state}</span><span>${t.time}</span></div></button>`).join('')||'<p class="quiet">해당하는 티켓이 없습니다.</p>';
+ historyList();
+}
+
+function abRenderChat(){
+ const t=state.ticket, locked=t.state==='종료';
+ $('chat-head').innerHTML=`<div class="row between"><h2>상담 채팅</h2>${chip(t.state)}</div><div class="row between compact"><span class="quiet">#${t.id} · ${t.channel}</span>${btn('이관','transfer',false,locked?'disabled':'')}${btn('종료','end',true,locked?'disabled':'')}</div><label class="row quiet">문의 분류 <select id="topic">${['결품·환불','배송','교환','혜택','기타'].map(c=>`<option ${t.topic===c?'selected':''}>${c}</option>`).join('')}</select></label><div class="row between quiet"><span>상담 모니터링 · 대화 상태 확인</span>${btn('안내 문구','quick')}</div>`;
+ $('messages').innerHTML=`<p class="quiet">${t.channel}에서 상담 접수</p>`+t.messages.map(([who,message,at])=>`<div class="msg ${who==='상담사'?'agent':''}"><span>${who} · ${at}</span><p>${clean(message)}</p></div>`).join('');
+ $('messages').scrollTop=$('messages').scrollHeight;
+ $('composer').innerHTML=`<div class="row">${btn('취소/반품/환불','claim',true,locked?'disabled':'')}${btn('고객보상','comp')}${btn('문자 발송','sms')}${btn('자주 쓰는 답변','quick')}${btn('첨부','attach')}</div><form id="chat-form" class="row"><input id="chat-input" autocomplete="off" aria-label="메시지" placeholder="메시지를 입력해 주세요" value="${clean(state.drafts[t.id]||'')}" ${locked?'disabled':''}><button class="primary" type="submit" ${locked?'disabled':''}>전송</button></form>`;
+}
+
+function abRenderRight(){
+ const c=customer(),o=state.order;
+ $('customer').innerHTML=`<div class="row between"><h2>${c.name} ${c.id?'<small>'+c.id+'</small>':''}</h2>${btn('고객 상세','customer',true)}</div><div class="row">${chip(c.login,c.app)} ${chip(c.verify,c.verified)} <span class="quiet">연락처 ${c.phone}</span></div>${operationalActions()}`;
+ const tabs=[['order','주문·배송'],['claims','취소·반품·환불·보상'],['benefits','고객정보·혜택'],['overview','통합 요약']];
+ $('orderbar').innerHTML=`<div class="row between"><div><div class="quiet">${o?(o.id===state.ticket.order?'문의 연결 주문':'선택 주문'):'고객 주문 연결'}</div>${state.mode==='summary'&&o?btn('주문번호 '+o.id+' ▾','history'):'<strong>'+(o?.id||'선택된 주문 없음')+'</strong>'} ${o?chip(o.status):''}</div><div class="row compact">${btn('과거 주문 조회','history',true)}${orderCancelButton()}${o&&o.id!==state.ticket.order&&state.ticket.order?btn('문의 주문으로','origin'):''}</div></div>${state.mode==='tabs'?'<div class="tabs row">'+tabs.map(([id,label])=>btn(label,'tab:'+id,state.tab===id,`aria-pressed="${state.tab===id}"`)).join('')+'</div>':''}`;
+ $('work').innerHTML=state.mode==='summary'?abSummary():({order:abTabOrder,claims:abTabClaims,benefits:abTabBenefits,overview:abOverview}[state.tab])();
+ $('work-footer').innerHTML=btn('보유 혜택','benefits')+btn('고객보상','comp')+btn('보상 이력','comp-log')+btn('1:1 문의','inquiry')+btn('상담 메모','note');
+}
+
+function operationalActions(){
+ return '<div class="row compact">'+btn('상품 검색','catalog')+btn('CID 연동','customer')+btn('상담 가이드','manual')+btn('취소·반품·환불','claim')+btn('CS 보상','comp')+'</div>';
+}
+function abDelivery(){
+ const o=state.order;
+ return topicPanel('배송 진행',kv([['배송 유형',o.type],['처리 점포',o.store],['현재 상태',statusChip(o.status)],['도착 시간',o.eta]])+
+ '<hr><div class="row compact">'+btn(o.type==='스캔앤딜리버리'?'스캔·인계 내역':'배송 진행 상세','tracking',true)+btn('신청서 보기','delivery-request')+btn('행사 보기','store-event')+btn('무전기 연락처','store-contact')+'</div>','orders');
+}
+function abPayments(){
+ return topicPanel('결제수단',kv([['주 결제','신용카드 '+won(total(state.order))],['e머니','미사용'],['신세계포인트','미사용'],['이마티콘','미사용']])+
+ '<hr><div class="row compact">'+btn('결제상세','payment',true)+btn('영수증 보기','receipt')+btn('프로모션','promo')+'</div>','orders');
+}
+function orderSnapshot(){
+ const o=state.order;
+ const fields=[['현재 배송',statusChip(o.status)],['도착 예정·완료',o.eta],['처리 점포',o.store],['총 결제액',won(total(o))]];
+ return '<div class="work-snapshot">'+fields.map(([name,value])=>`<div><small>${name}</small><strong>${value}</strong></div>`).join('')+'</div>';
+}
+function abTabOrder(){
+ if(!state.order)return noOrder();
+ return orderSnapshot()+topicPanel('주문상품',productTable(),'orders')+processArea()+orderBanner()+
+ '<div class="tiles">'+abDelivery()+abPayments()+'</div>'+topicPanel('배송 유형별 조회',deliveryGroups(),'orders')+address();
+}
+function abTabClaims(){return tabClaims();}
+function abTabBenefits(){
+ return tabBenefits()+(customer().app?topicPanel('저장 배송지',kv([['기본 배송지','서울 마포구 성산동 **']])+btn('고객 상세','customer'),'benefits'):'');
+}
+function abOverview(){
+ if(!state.order)return noOrder()+abTabBenefits();
+ return orderSnapshot()+processArea()+
+ '<div class="tiles">'+topicPanel('주문·배송',`<p>${state.order.type} · ${state.order.status}</p><hr>${btn('주문·배송 상세','tab:order')}`,'orders')+
+ topicPanel('취소·반품·환불·보상',`<p>선택 주문 처리 이력 ${related().length}건</p><hr>${btn('처리 상세','tab:claims')} ${btn('보상 이력','comp-log')}`,'claims')+'</div>'+
+ topicPanel('고객정보·혜택',`<p>${customer().name} · ${customer().grade}</p><hr>${btn('고객정보·혜택 상세','tab:benefits')}`,'benefits');
+}
+function summaryGroup(title,content,tone='',id=''){
+ return `<details class="accordion ${tone}" ${id?'id="'+id+'"':''} ${state.summaryOpen.has(id)?'open':''}><summary>${title}</summary><div class="stack">${content}</div></details>`;
+}
+function abSummary(){
+ const o=state.order;
+ if(!o)return noOrder()+abTabBenefits();
+ return orderSnapshot()+processArea()+
+ topicPanel('주문 요약',`<div class="row between"><div><strong>${o.items[0].name}${o.items.length>1?' 외 '+(o.items.length-1)+'종':''}</strong><div class="quiet">${o.date} · ${o.type}</div></div><div class="row compact">${btn('주문상품보기','products',true)}${btn('영수증 보기','receipt')}${btn('결제상세','payment')}</div></div>`,'orders')+
+ '<div class="tiles">'+abDelivery()+abPayments()+'</div>'+address()+
+ '<div class="row compact">'+btn('배송 유형별 상세','summary:delivery')+btn('반품·환불·보상','summary:claims')+btn('고객정보·혜택','summary:benefits')+'</div>'+
+ summaryGroup('배송 유형별 상세 · 실시간 추적·기사 관제·매장 인계',orderBanner()+deliveryGroups(),'','summary-delivery')+
+ summaryGroup('취소·반품·환불 및 고객보상',abTabClaims(),'claim-group','summary-claims')+
+ summaryGroup('고객정보 · 배송지 · 혜택 · 장바구니',abTabBenefits(),'green','summary-benefits');
+}
+
+function showComparison(){
+ modal('상담 BO 시안 비교',`<div class="stack">
+ <div class="box"><h3>A안 · 업무 탭형</h3><p>주문·배송, 취소·반품·환불, 고객정보를 구분합니다. 여러 상품의 상태와 처리 이력을 확인하는 상담에 적합합니다.</p></div>
+ <div class="box"><h3>B안 · 한 화면 요약형</h3><p>배송·결제와 선택 상품을 먼저 보여줍니다. 배송 유형별 조회, 반품·환불·보상, 고객·혜택 섹션을 펼쳐 상세를 확인합니다.</p></div>
+ <div class="box"><h3>C안 · 원본 4화면형</h3><p>처음 받은 네 장의 색상과 밀도, 배송 유형별 카드, CS 보상 패널과 통합 보기를 반영했습니다.</p></div>
+ <p class="quiet">같은 티켓과 주문으로 세 안을 비교할 수 있습니다. 상담 이력은 현재 채팅 옆에 열리고, 업무 창은 제목줄을 잡아 옮길 수 있습니다.</p></div>`,
+ btn('A안 보기','mode:tabs',true)+btn('B안 보기','mode:summary')+btn('C안 보기','mode:original'));
+}
+function modal(title,body,footer='',wide=false,key=''){
+ state.modal=key;
+ const d=$('dialog');d.classList.toggle('wide',wide);
+ $('dialog-title').textContent=title;$('modal-body').innerHTML=body;
+ $('modal-footer').innerHTML=footer||btn('닫기','close');
+ const fresh=!d.open;
+ if(fresh)d.show();
+ const pane=$('workspace-pane');
+ const defaultLeft=pane.clientWidth-d.offsetWidth-10;
+ const defaultTop=$('orderbar').offsetTop+$('orderbar').offsetHeight+10;
+ moveDialog(fresh?defaultLeft:d.offsetLeft,fresh?defaultTop:d.offsetTop);
+ $('modal-body').scrollTop=0;
+}
+function close(){
+ const d=$('dialog');
+ if(d.open)d.close();
+ state.modal='';
+ state.pending=null;
+}
+function moveDialog(x,y){
+ const d=$('dialog'), pane=$('workspace-pane'), margin=8;
+ const fit=(value,limit)=>Math.max(margin,Math.min(value,Math.max(margin,limit-margin)));
+ d.style.left=fit(x,pane.clientWidth-d.offsetWidth)+'px';
+ d.style.top=fit(y,pane.clientHeight-d.offsetHeight)+'px';
+}
+function wireDialogMovement(){
+ const handle=$('dialog-handle'), d=$('dialog');
+ let start=null;
+ handle.addEventListener('pointerdown',e=>{
+  if(e.button!==0||e.target.closest('[data-action="close"]'))return;
+  if(e.target.closest('#move-dialog'))$('move-dialog').focus();
+  start={pointer:e.pointerId,x:e.clientX,y:e.clientY,left:d.offsetLeft,top:d.offsetTop};
+  handle.setPointerCapture(e.pointerId);
+  handle.classList.add('dragging');
+  e.preventDefault();
+ });
+ handle.addEventListener('pointermove',e=>{
+  if(start?.pointer===e.pointerId)moveDialog(start.left+e.clientX-start.x,start.top+e.clientY-start.y);
+ });
+ const clear=()=>{start=null;handle.classList.remove('dragging');};
+ handle.addEventListener('lostpointercapture',clear);
+ handle.addEventListener('pointercancel',clear);
+ d.addEventListener('close',clear);
+ $('move-dialog').addEventListener('keydown',e=>{
+  const delta={ArrowLeft:[-16,0],ArrowRight:[16,0],ArrowUp:[0,-16],ArrowDown:[0,16]}[e.key];
+  if(!delta)return;
+  e.preventDefault();
+  moveDialog(d.offsetLeft+delta[0],d.offsetTop+delta[1]);
+ });
+ d.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();close();}});
+ window.addEventListener('resize',()=>{if(d.open)moveDialog(d.offsetLeft,d.offsetTop);});
+}
+const filterDefaults={period:'30',query:'',status:'all',from:'2026-10-27',to:'2026-11-26'};
+let orderFilter={...filterDefaults};
+function showHistory(reset=false){
+ if(reset)orderFilter={...filterDefaults};
+ if(!customer().app&&!customer().verified){modal('과거 주문 조회','<p class="notice">고객 식별이 확인되면 조회할 수 있습니다. 문자 링크 진입 티켓도 별도로 휴대폰 인증 결과를 확인합니다.</p>',btn('고객 정보 확인','customer',true));return;}
+ modal('과거 주문 조회',`<div class="stack"><p>${customer().name} 고객 · 주문번호 또는 상품명으로 찾을 수 있습니다.</p>
+ <form id="order-search" class="row filter"><label>기간 <select name="period"><option value="30">최근 30일</option><option value="90">최근 90일</option><option value="custom">직접 지정</option></select></label><label>시작일<input name="from" type="date"></label><label>종료일<input name="to" type="date"></label><label>상태<select name="status"><option value="all">전체</option><option value="delivered">배송 완료</option><option value="active">진행 중</option><option value="claim">처리 이력 있음</option></select></label><label>주문번호·상품명<input name="query" placeholder="예: 사료"></label><button class="primary" type="submit">조회</button></form><div id="order-results" aria-live="polite"></div></div>`,btn('닫기','close'),true,'history');
+ const form=$('order-search');
+ for(const [key,value] of Object.entries(orderFilter))form.elements[key].value=value;
+ searchOrders();
+}
+function searchOrders(){
+ const form=$('order-search');
+ const p=form.elements.period;
+ if(p.value!=='custom'){form.elements.from.value=p.value==='30'?'2026-10-27':'2026-08-28';form.elements.to.value='2026-11-26';}
+ for(const name of ['from','to'])form.elements[name].disabled=p.value!=='custom';
+ orderFilter=Object.fromEntries(['period','query','status','from','to'].map(k=>[k,form.elements[k].value]));
+ const {query,status,from,to}=orderFilter;
+ if(!from||!to||from>to){$('order-results').innerHTML='<p class="error">조회 기간을 다시 확인해 주세요.</p>';return;}
+ const needle=query.trim().toLowerCase();
+ const found=ownOrders().filter(o=>o.date>=from&&o.date<=to&&(!needle||o.id.includes(needle)||o.items.some(i=>i.name.toLowerCase().includes(needle)))&&
+ (status==='all'||status==='delivered'&&o.status==='배송 완료'||status==='active'&&o.status!=='배송 완료'||status==='claim'&&claims.some(c=>c.order===o.id)));
+ $('order-results').innerHTML=found.length?`<p class="quiet">조회 결과 ${found.length}건</p><div class="scrolltable"><table><thead><tr><th>주문일·주문번호</th><th>대표 상품</th><th>상태</th><th>결제액</th><th>선택</th></tr></thead><tbody>${found.map(o=>`<tr class="${state.order===o?'selected':''}"><td>${o.date}<br><strong>${o.id}</strong></td><td>${o.items[0].name}${o.items.length>1?' 외 '+(o.items.length-1)+'종':''}</td><td>${o.status}<br><small>${o.type}</small></td><td class="nowrap">${won(total(o))}</td><td>${btn(state.order===o?'선택 중':'주문 선택','order:'+o.id,state.order!==o)}</td></tr>`).join('')}</tbody></table></div>`:'<p class="notice">해당 주문이 없습니다. 기간이나 검색어를 변경해 주세요.</p>';
+}
+function products(){
+ if(!state.order){showHistory(true);return;}
+ modal('주문상품 보기 · '+state.order.id,productTable()+'<br>'+processArea(),btn('닫기','close'),true,'products');
+}
+function canCancelOrder(order){
+ return !!order?.items.length&&order.items.every(i=>claimAvailable(i,'취소'));
+}
+function orderCancelButton(){
+ return state.order?btn('주문 전체 취소','cancel-order',false):'';
+}
+function orderCancel(){
+ const o=state.order;
+ if(!o){showHistory(true);return;}
+ const blocked=o.items.filter(i=>!claimAvailable(i,'취소'));
+ if(blocked.length){
+  modal('주문 전체 취소 가능 여부',
+   '<p class="notice">주문의 모든 상품이 취소 가능한 상태여야 전체 취소를 접수할 수 있습니다.</p><hr>'+
+   kv([['주문번호',o.id],...blocked.map(i=>[i.name,claimOn(i)?.status||i.status])]),
+   btn('상품별 처리','claim')+btn('다른 주문 조회','history',true));
+  return;
+ }
+ modal('주문 전체 취소',`<form id="cancel-order-form" class="stack">
+ <div class="box">${kv([['주문번호',o.id],...o.items.map(i=>[i.name,i.qty+'개 · '+won(i.qty*i.price)])])}</div>
+ <label class="field">취소 사유<select name="reason" required><option value="">선택해 주세요</option><option>구매 의사 변경</option><option>중복 주문</option><option>기타</option></select></label>
+ <div class="strip row between"><strong>환불 예정액</strong><strong>${won(total(o))}</strong></div>
+ </form>`,btn('닫기','close')+btn('내용 확인','cancel-order-review',true),false,'cancel-order');
+}
+function reviewOrderCancel(){
+ const o=state.order;
+ const form=$('cancel-order-form');
+ if(!canCancelOrder(o)||!form?.reportValidity())return;
+ const reason=new FormData(form).get('reason');
+ state.pending={order:o.id,reason,type:'전체 취소'};
+ modal('최종 확인 · 주문 전체 취소',kv([['주문번호',o.id],['대상 상품',o.items.map(i=>i.name+' '+i.qty+'개').join('<br>')],['취소 사유',clean(reason)],['환불 예정액','<strong>'+won(total(o))+'</strong>']])+
+ '<hr><p class="notice">선택 주문의 모든 상품을 취소합니다. 이 화면의 실행은 가상 접수입니다.</p>',
+ btn('이전','cancel-order')+btn('전체 취소 접수 확정','cancel-order-submit',true),false,'cancel-order-review');
+}
+function submitOrderCancel(){
+ const p=state.pending,o=state.order;
+ if(p?.type!=='전체 취소'||p.order!==o?.id||!canCancelOrder(o))return;
+ const receipt={...p,id:'BO-'+(10240+claims.length),name:'주문 전체',amount:total(o),qty:o.items.reduce((quantity,i)=>quantity+i.qty,0),status:'취소 접수',items:o.items.map(i=>({sku:i.sku,name:i.name,qty:i.qty}))};
+ claims.unshift(receipt);
+ o.status=receipt.status;o.eta='해당 없음';state.pending=null;
+ renderRight();
+ modal('주문 전체 취소 접수',`<div class="strip"><strong>${receipt.id}</strong><div>${o.id} · ${receipt.qty}개 · 환불 예정 ${won(receipt.amount)}</div></div>`,
+ btn('처리 이력 보기','claim-log')+btn('채팅 안내문 넣기','claim-message:'+receipt.id,true));
+}
+
+function claimForm(kind){
+ if(!state.order){showHistory(true);return;}
+ const i=currentItem(), o=state.order;
+ if(!kind){
+  modal('취소·반품·환불',`<p class="notice">선택한 주문과 상품을 확인한 뒤 처리 유형을 선택해 주세요.</p><br>${productTable()}<br>${processArea()}`,btn('과거 주문 조회','history')+orderCancelButton()+btn('닫기','close'),true,'claim-choice');
+  return;
+ }
+ const exists=claimOn(i);
+ if(exists){modal('등록된 처리 건',historyTable([exists]),btn('닫기','close'));return;}
+ if(!claimAvailable(i,kind)){
+  modal(kind+' 가능 여부',`<p class="notice">${i.name} · ${i.status}</p><p>가상 주문 데이터에서 이 상품은 ${kind} 가능 상태가 아닙니다. 처리할 다른 상품이나 주문을 선택해 주세요.</p>`,btn('주문상품 선택','products')+btn('과거 주문 조회','history',true));return;
+ }
+ const reasons=kind==='반품'?['상품 파손','상품 불량','오배송','구매 의사 변경']:kind==='환불'?['재고 부족으로 결품','상품 불량','기타']:['구매 의사 변경','중복 주문','기타'];
+ modal(kind+' 신청 · 상품 확인',`<form id="claim-form" class="stack"><div class="box">${kv([['주문번호',o.id],['상품',i.name],['현재 상태',i.status],['결제수단','신용카드']])}</div><div class="row filter"><label>처리 수량<select name="qty">${Array.from({length:remaining(i)},(_,n)=>'<option>'+(n+1)+'</option>').join('')}</select></label><label>사유<select name="reason" required><option value="">선택해 주세요</option>${reasons.map(r=>'<option>'+r+'</option>').join('')}</select></label></div>${kind==='반품'?'<label class="field">회수 방법<select name="method"><option>방문 회수 · 기존 배송지</option><option>직접 반납</option></select></label>':''}<label class="field">상담 메모<textarea name="memo" rows="2" placeholder="필요 시 입력"></textarea></label><div class="strip row between"><strong>환불 예정액</strong><strong id="refund-estimate">${won(i.price)}</strong></div><p class="quiet">금액과 처리 가능 여부는 목업 예시입니다.</p></form>`,btn('주문상품 선택','products')+btn('내용 확인','claim-review:'+kind,true),false,'claim-form');
+}
+function claimReview(kind){
+ const f=$('claim-form');
+ if(!f.reportValidity())return;
+ const fields=new FormData(f), i=currentItem();
+ const qty=Number(fields.get('qty'));
+ if(!claimAvailable(i,kind)||qty<1||qty>remaining(i)){toast('상품과 가능한 수량을 확인해 주세요.');return;}
+ state.pending={order:state.order.id,sku:i.sku,name:i.name,type:kind,qty,amount:i.price*qty,reason:fields.get('reason'),method:fields.get('method'),memo:fields.get('memo')};
+ const p=state.pending;
+ modal('최종 확인 · '+kind,kv([['주문번호',p.order],['대상 상품',p.name],['수량',p.qty+'개'],['사유',clean(p.reason)],...(p.method?[['회수 방법',clean(p.method)]]:[]),['환불 예정액','<strong>'+won(p.amount)+'</strong>'],...(p.memo?[['상담 메모',clean(p.memo)]]:[])])+
+ `<hr><p class="notice">${kind==='반품'?'반품 접수 후 회수·검수 결과에 따라 환불 단계가 진행됩니다.':'선택 상품과 금액을 확인한 후 처리합니다.'} 이 화면의 실행은 가상 접수입니다.</p>`,btn('이전','claim:'+kind)+btn(kind==='반품'?'반품 접수 확정':kind+' 처리 확정','claim-submit',true),false,'claim-review');
+}
+function submitClaim(){
+ const p=state.pending;
+ if(!p||p.order!==state.order?.id||p.sku!==currentItem()?.sku||!claimAvailable(currentItem(),p.type))return;
+ const res={...p,id:'BO-'+(10240+claims.length),status:p.type==='반품'?'반품 접수 · 회수 대기':p.type==='취소'?'취소 접수':'환불 접수'};
+ claims.unshift(res);state.pending=null;renderRight();
+ modal('처리 결과',`<div class="strip"><strong>${res.status}</strong><div>${res.id} · ${res.name} ${res.qty}개 · 환불 예정 ${won(res.amount)}</div></div><br><p>선택 주문의 처리 이력에서 진행 상태를 확인할 수 있습니다.</p>`,btn('처리 이력 보기','claim-log')+btn('채팅 안내문 넣기','claim-message:'+res.id,true));
+}
+function claimDetail(id){
+ const c=related().find(entry=>entry.id===id);
+ if(!c)return;
+ const next={
+  '반품 접수 · 회수 대기':'회수 완료 · 검수 대기',
+  '회수 완료 · 검수 대기':'검수 완료 · 환불 대기',
+  '검수 완료 · 환불 대기':'환불 완료',
+  '환불 접수':'환불 완료',
+  '취소 접수':'취소 완료'
+ }[c.status];
+ modal('처리 상세 · '+c.id,kv([['주문번호',c.order],['상품',c.name],['수량',c.qty+'개'],...(c.items?[['대상 상품',c.items.map(i=>i.name+' '+i.qty+'개').join('<br>')]]:[]),['신청 유형',c.type],['사유',clean(c.reason)],['현재 상태',c.status],['금액',won(c.amount)],...(c.method?[['회수 방법',clean(c.method)]]:[])])+(next?'<hr><p class="quiet">샘플 상태 전환을 통해 후속 화면을 확인할 수 있습니다.</p>':''),btn('처리 이력','claim-log')+(next?btn(next+' (가상)','claim-advance:'+c.id,true):''),false,'claim-detail');
+}
+function receipt(payment=false){
+ const o=state.order;
+ const refund=related().filter(c=>['환불 완료','취소 완료'].includes(c.status)).reduce((n,c)=>n+c.amount,0);
+ modal(payment?'결제상세':'영수증 보기',kv([['주문번호',o.id],['결제 일자',o.date],['결제수단','신용카드 **** 4321'],['원 결제액',won(total(o))],['환불 완료액',won(refund)],['실결제 잔액',won(total(o)-refund)]])+(payment?'':'<hr><p class="quiet">가상 영수증 · 승인번호 ****0021</p>'),btn(payment?'영수증 보기':'결제상세',payment?'receipt':'payment'));
+}
+function customerModal(){
+ const c=customer();
+ modal('고객 정보',kv([['고객명',c.name],['아이디',c.id||'미연결'],['연락처',c.phone],['최초 진입 경로',state.ticket.channel],['앱 로그인',c.login],['휴대폰 인증',c.verify],['회원 등급',c.grade]])+
+ '<hr><p class="quiet">회원 정보와 주문의 연결 여부는 상담사 권한 및 운영 기준에 따라 확인합니다.</p>',btn('과거 주문 조회','history',true));
+}
+function formDialog(title,body,action,label,options=''){
+ modal(title,'<form id="detail-form" class="stack">'+body+'</form>',btn('닫기','close')+btn(label,'form:'+action,true,options));
+}
+function info(action){
+ const o=state.order;
+ const details={
+  tracking:['배송 진행 상세',()=>kv([['주문번호',o.id],[o.time,'주문 접수'],['배송 유형',o.type],['현재 상태',o.status],['처리 점포',o.store],['예정·실제 도착',o.eta],...(o.type==='근거리배송'?[['배정 상태',o.status==='상품 준비 중'?'기사 배정 대기':'배송 완료']]:o.type==='바로배송'?[['운송장','예시 **** 6819'],['실시간 위치',o.status==='배송 중'?'배송지 인근 · 예시':'배송 상태 상세에서 확인']]:[['매장 스캔',o.date+' 14:20'],['배송 인계',o.date+' 15:06']])])],
+  'delivery-request':['신청서 보기',()=>kv([['주문번호',o.id],['서비스',o.type],['점포',o.store],['수령 요청','부재 시 문 앞'],['신청일',o.date]])],
+  'store-event':['행사 보기',()=>kv([['점포',o.store],['행사명','가상 점포 행사'],['상세','신선식품 행사 · 적용 조건 확인']])],
+  'store-contact':['무전기 연락처',()=>kv([['점포',o?.store||'문의 점포 미확인'],['연결 대상','온라인 배송 담당'],['내선','예시 203']])],
+  promo:['프로모션',()=>kv([['선택 주문 적용 행사',o?'적용 내역 없음':'선택 주문 없음'],['보유 행사','회원 혜택 화면에서 확인']])],
+  policy:['처리 가능 여부',()=>kv([['현재 상품',currentItem()?.name||'미선택'],['상품 상태',currentItem()?.status||'미확인'],['처리 가능 여부','주문 상태와 상품별 기준에 따라 확인']])],
+  benefits:['보유 혜택',benefitsBody],
+  cart:['장바구니 상세',()=>kv([['노브랜드 생수 2L 묶음','1개'],['피코크 우삼겹 600g','1개']])],
+  'claim-log':['반품·환불 처리 이력',()=>historyTable(related())],
+  'comp-log':['고객보상 이력',()=>{const list=state.comp.filter(c=>c.owner===state.ticket.owner);return list.length?kv(list.map(c=>[c.id,clean(c.type)+' · '+won(c.amount)+' · 접수'])):'<p>이 고객의 보상 접수 이력이 없습니다.</p>'; }]
+ };
+ const [title,body]=details[action];
+ modal(title,body(),action==='claim-log'?btn('과거 주문 조회','history')+btn('닫기','close'):'',action==='claim-log');
+}
+const replyRecords=[
+ {id:426,scope:'공통',title:'결품 상품 환불 안내',body:'고객님, 결품으로 불편을 드려 죄송합니다. 주문과 결제 내역을 확인한 뒤 환불 절차를 안내드리겠습니다.',author:'최준영',created:'2026-11-20',updated:'2026-11-20'},
+ {id:312,scope:'공통',title:'반품 및 회수 안내',body:'반품 접수 후 상품 회수 및 검수가 진행됩니다. 접수번호와 예상 일정을 확인해 드리겠습니다.',author:'안혜영',created:'2026-11-20',updated:'2026-11-20'},
+ {id:298,scope:'개인',title:'배송 진행 확인',body:'주문 상태를 확인하고 배송 진행 상황을 안내드리겠습니다.',author:'상담원',created:'2026-11-21',updated:'2026-11-21'},
+ {id:281,scope:'공통',title:'교환 및 주문 확인',body:'주문번호와 교환이 필요한 상품명을 알려주시면 접수 가능 여부를 확인하겠습니다.',author:'함수연',created:'2026-11-21',updated:'2026-11-22'}
+];
+const sharedNav=[['내 티켓','나의 티켓'],['전체 티켓','모든 티켓'],['대시보드','대시보드'],['퀵리플라이','퀵리플라이'],['문서정보','문서정보']];
+const ticketQuery={query:'',status:'전체',team:'전체',agent:'전체',store:'전체',channel:'전체',days:'30',page:1,selected:null};
+const quickQuery={query:'',scope:'전체',field:'제목+내용'};
+const support={quickOpen:false,quickMode:'list',replyId:null,doc:'멤버십매뉴얼',docTopic:'TR CASH 이용안내',inventory:{store:'역삼점',query:''}};
+const inConsultation=()=>state.nav==='내 티켓';
+const ticketOrder=t=>orders.find(o=>o.id===t.order);
+const ticketAgent=t=>t.assigned===false||t.state==='대기'?'미배정':t.owner==='phone'?'김영기':'홍길동';
+const ticketTeam=t=>t.topic==='배송'?'배송상담':'커머스상담';
+const ticketStore=t=>ticketOrder(t)?.store||'미지정';
+const ticketDate=t=>t.state==='종료'?'2026-11-21':'2026-11-26';
+const readableDate=()=>new Date().toLocaleDateString('sv-SE');
+const optionList=(values,value)=>values.map(v=>`<option ${v===value?'selected':''}>${clean(v)}</option>`).join('');
+const replyById=id=>replyRecords.find(r=>r.id===Number(id));
+function managedPage(){
+ const page=$('reference-page'), workspace=$('consultation-grid');
+ page.hidden=inConsultation();
+ workspace.hidden=!inConsultation();
+ $('c-footer').hidden=state.mode!=='original'||!inConsultation();
+ if(inConsultation())return;
+ const views={'전체 티켓':ticketPage,'퀵리플라이':quickPage,'대시보드':dashboardPage,'문서정보':documentPage};
+ page.innerHTML=views[state.nav]();
+}
+function navigate(label){
+ close();state.nav=label;
+ if(label==='퀵리플라이'){support.quickMode='list';support.replyId=null;}
+ render();
+}
+function ticketPage(){
+ const controls=[
+  ['status','상태',['전체',...new Set(tickets.map(t=>t.state))]],
+  ['team','팀',['전체',...new Set(tickets.map(ticketTeam))]],
+  ['agent','상담원',['전체',...new Set(tickets.map(ticketAgent))]],
+  ['store','점포',['전체',...new Set(tickets.map(ticketStore))]],
+  ['channel','진입 경로',['전체','앱','점포 챗봇','문자 링크']]
+ ];
+ const q=ticketQuery.query.toLowerCase().trim();
+ const facts=t=>({status:t.state,team:ticketTeam(t),agent:ticketAgent(t),store:ticketStore(t),channel:t.channel});
+ const filtered=tickets.filter(t=>(!q||[t.id,t.title,t.topic].some(v=>v.toLowerCase().includes(q)))&&
+  controls.every(([key])=>ticketQuery[key]==='전체'||ticketQuery[key]===facts(t)[key])&&
+  (ticketQuery.days!=='1'||ticketDate(t)==='2026-11-26'));
+ const pageSize=4,last=Math.max(1,Math.ceil(filtered.length/pageSize));
+ ticketQuery.page=Math.min(Math.max(ticketQuery.page,1),last);
+ const shown=filtered.slice((ticketQuery.page-1)*pageSize,ticketQuery.page*pageSize);
+ const preview=filtered.find(t=>t.id===ticketQuery.selected);
+ const rows=shown.map(t=>`<tr class="${t.id===preview?.id?'selected':''}" data-ticket-preview="${t.id}"><td>${statusChip(t.state)}</td><td><button type="button" class="table-control" data-action="ticket-preview:${t.id}">${clean(t.title)}<br><small>#${t.id}</small></button></td><td>${channelChip(t.channel)}</td><td>${ticketTeam(t)}</td><td>${ticketAgent(t)}</td><td>${t.id==='2378992'?'5.0':t.state==='종료'?'4.0':'—'}</td><td>${ticketDate(t)}</td></tr>`);
+ return `<h2 class="aux-title">모든 티켓</h2><div class="aux-grid"><div class="aux-box">
+ <form id="ticket-search-form" class="row aux-filter">${controls.map(([key,label,values])=>`<label>${label}<select name="${key}">${optionList(values,ticketQuery[key])}</select></label>`).join('')}
+ <label>기간<select name="days"><option value="30">최근 30일</option><option value="1" ${ticketQuery.days==='1'?'selected':''}>오늘</option></select></label><label>티켓 검색<input name="query" value="${clean(ticketQuery.query)}" placeholder="티켓 ID 또는 제목"></label><button type="submit" class="primary">검색</button></form>
+ <p class="aux-sub">검색된 티켓 ${filtered.length}건</p>
+ <div class="scrolltable aux-table"><table><thead><tr><th>상태</th><th>티켓</th><th>진입 경로</th><th>팀</th><th>상담원</th><th>만족도</th><th>생성일</th></tr></thead><tbody>${rows.join('')||'<tr><td colspan="7">검색 조건에 맞는 티켓이 없습니다.</td></tr>'}</tbody></table></div>
+ <div class="row aux-pagination">${btn('이전','ticket-page:'+(ticketQuery.page-1),false,ticketQuery.page===1?'disabled':'')}${Array.from({length:last},(_,i)=>btn(String(i+1),'ticket-page:'+(i+1),i+1===ticketQuery.page)).join('')}${btn('다음','ticket-page:'+(ticketQuery.page+1),false,ticketQuery.page===last?'disabled':'')}</div></div>
+ <aside class="aux-box aux-preview" aria-label="선택 티켓 대화">${preview?`<div class="row between"><h3>${clean(preview.title)}</h3>${statusChip(preview.state)}</div><p class="aux-sub">#${preview.id} · ${preview.channel} · ${ticketDate(preview)}</p><hr>${preview.messages.map(([who,message,at])=>`<div class="msg ${who==='상담사'?'agent':''}"><p>${clean(message)}</p><span>${who} · ${at}</span></div>`).join('')}<hr>${btn('상담 화면에서 열기','ticket-open:'+preview.id,true)}`:'<div class="aux-empty"><p>티켓을 선택하면 대화 미리보기가 표시됩니다.</p></div>'}</aside></div>`;
+}
+function replySearchForm(where){
+ return `<form id="reply-search-${where}" class="row aux-filter"><label>구분<select name="scope">${optionList(['전체','공통','개인'],quickQuery.scope)}</select></label><label>검색 범위<select name="field">${optionList(['제목+내용','제목','내용'],quickQuery.field)}</select></label><label>빠른 답변 검색<input name="query" placeholder="제목 또는 답변" value="${clean(quickQuery.query)}"></label><button type="submit" class="primary">검색</button></form>`;
+}
+function matchingReplies(){
+ const q=quickQuery.query.trim().toLowerCase();
+ return replyRecords.filter(r=>(quickQuery.scope==='전체'||quickQuery.scope===r.scope)&&
+ (quickQuery.field==='제목'?r.title:quickQuery.field==='내용'?r.body:r.title+' '+r.body).toLowerCase().includes(q));
+}
+function quickList(where){
+ const rows=matchingReplies();
+ return replySearchForm(where)+`<div class="row between"><span class="aux-sub">답변 ${rows.length}건</span>${btn('새 답변 생성','reply-edit:new',true)}</div><div class="scrolltable aux-table"><table><thead><tr><th>ID</th><th>구분</th><th>작성자</th><th>제목</th><th>답변 내용</th>${where==='page'?'<th>작성일</th><th>수정일</th>':''}<th>관리</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r.id}</td><td>${chip(r.scope,r.scope==='공통')}</td><td>${clean(r.author)}</td><td><button type="button" class="table-control" data-action="reply-detail:${r.id}">${clean(r.title)}</button></td><td>${clean(r.body.length>42?r.body.slice(0,42)+'…':r.body)}</td>${where==='page'?'<td>'+r.created+'</td><td>'+r.updated+'</td>':''}<td><div class="row">${btn('수정','reply-edit:'+r.id)}${btn('삭제','reply-delete:'+r.id)}</div></td></tr>`).join('')||'<tr><td colspan="8">검색된 답변이 없습니다.</td></tr>'}</tbody></table></div>`;
+}
+function quickBody(where){
+ const r=replyById(support.replyId), mode=support.quickMode;
+ const tabs=`<div class="row ref-pills">${btn('리스트 관리','reply-list',mode==='list')}${btn('답변 추가 / 수정','reply-edit:'+(r?.id||'new'),mode==='edit')}</div>`;
+ if(mode==='list')return tabs+quickList(where);
+ if(mode==='detail'&&r)return tabs+`<div class="aux-box quick-editor"><h3>${clean(r.title)}</h3><hr>${kv([['구분',r.scope],['작성자',clean(r.author)],['내용','<div class="quick-detail">'+clean(r.body)+'</div>']])}<hr><div class="row">${btn('목록','reply-list')}${btn('수정하기','reply-edit:'+r.id,true)}${btn('삭제','reply-delete:'+r.id)}${inConsultation()?btn('채팅에 넣기','quick-use:'+r.id):''}</div></div>`;
+ if(mode==='delete'&&r)return tabs+`<div class="aux-box quick-editor"><h3>답변 삭제</h3><p>${clean(r.title)} 답변을 삭제하시겠습니까?</p><hr><div class="row">${btn('돌아가기','reply-detail:'+r.id)}${btn('삭제 확정','reply-remove:'+r.id,true)}</div></div>`;
+ return tabs+`<div class="aux-box quick-editor"><h3>${r?'답변 수정':'새 답변 생성'}</h3><hr><form id="reply-form" class="stack quick-manage-form" novalidate><label class="field">구분 · 필수<select name="scope">${optionList(['공통','개인'],r?.scope||'공통')}</select></label><label class="field">제목 · 필수<input name="title" maxlength="80" required value="${clean(r?.title)}" placeholder="제목을 입력하세요"></label><label class="field">내용 · 필수<textarea name="body" required rows="6" maxlength="1000" placeholder="내용을 입력하세요">${clean(r?.body)}</textarea></label><p class="quick-error" id="reply-error" role="alert"></p><div class="row">${btn('취소','reply-list')}<button class="primary" type="submit">저장</button></div></form></div>`;
+}
+function quickPage(){return '<h2 class="aux-title">퀵리플라이</h2><div class="aux-box quick-list stack">'+quickBody('page')+'</div>';}
+function showQuickManager(mode='list',id=null){
+ support.quickMode=mode;support.replyId=id;
+ if(inConsultation())modal('빠른답변 관리',`<div class="quick-list stack">${quickBody('popup')}</div>`,'',true,'reply-manager');
+ else managedPage();
+}
+function saveReply(form){
+ const data=new FormData(form), title=data.get('title')?.trim(), body=data.get('body')?.trim();
+ if(!title||!body){$('reply-error').textContent=!title?'제목을 입력해 주세요.':'내용을 입력해 주세요.';form.elements[!title?'title':'body']?.focus();return;}
+ const existing=replyById(support.replyId), now=readableDate();
+ const updated={scope:data.get('scope'),title,body,updated:now};
+ if(existing)Object.assign(existing,updated);
+ else replyRecords.unshift({id:Math.max(426,...replyRecords.map(r=>r.id))+1,author:'상담원',created:now,...updated});
+ quickQuery.query='';quickQuery.scope='전체';
+ showQuickManager();renderQuickChat();toast('빠른 답변을 저장했습니다.');
+}
+function renderQuickChat(){
+ const el=$('quick-chat');el.hidden=!support.quickOpen||!inConsultation();
+ if(el.hidden)return;
+ el.innerHTML=`<div class="row between quick-header"><strong>빠른답변</strong><div class="row">${btn('관리','reply-list')}${btn('닫기 ×','quick-close')}</div></div><form id="reply-search-chat" class="row"><input name="query" aria-label="빠른답변 검색어" placeholder="답변 제목 또는 내용" value="${clean(quickQuery.query)}"><button type="submit">검색</button></form><div>${matchingReplies().map(r=>`<button type="button" class="quick-item" data-action="quick-use:${r.id}">${clean(r.title)} · ${r.scope}<br><small>${clean(r.body)}</small></button>`).join('')||'<p class="aux-sub">검색된 답변이 없습니다.</p>'}</div>`;
+}
+function dashboardPage(){
+ const groups=[['대기',tickets.filter(t=>t.state==='대기').length],['상담 중',tickets.filter(t=>t.state==='상담 중').length],['종료',tickets.filter(t=>t.state==='종료').length],['취소·반품·환불 접수',claims.length]];
+ return `<h2 class="aux-title">대시보드</h2><div class="work-snapshot">${groups.map(([name,count])=>panel(name,'<strong>'+count+'건</strong>')).join('')}</div><hr>${panel('진입 경로별 티켓',kv(['앱','점포 챗봇','문자 링크'].map(channel=>[channel,tickets.filter(t=>t.channel===channel).length+'건'])))}`;
+}
+function inventoryGuide(){
+ const {store,query}=support.inventory;
+ const items=[
+  ['P001','신선특급 딸기 750g','역삼점',0,15900,'신선식품'],
+  ['P003','노브랜드 생수 2L 묶음','역삼점',16,15000,'음료'],
+  ['P006','이마트 키친타월 6롤','성수점',9,9990,'생활용품'],
+  ['P009','노브랜드 생수 2L 묶음','은평점',12,11900,'음료']
+ ];
+ const found=items.filter(([sku,name,site])=>site===store&&(sku+' '+name).toLowerCase().includes(query.toLowerCase().trim()));
+ return `<h3>점포별 재고 조회</h3><form id="inventory-form" class="row aux-filter"><label>점포<select name="store">${optionList(['역삼점','성수점','은평점'],store)}</select></label><label>상품 검색<input name="query" value="${clean(query)}" placeholder="SKU 또는 상품명"></label><button class="primary" type="submit">조회</button></form><div class="scrolltable aux-table"><table><thead><tr><th>SKU</th><th>상품명</th><th>재고</th><th>가격</th><th>분류</th></tr></thead><tbody>${found.map(([sku,name,,qty,price,group])=>`<tr><td>${sku}</td><td>${name}</td><td>${qty}개</td><td>${won(price)}</td><td>${group}</td></tr>`).join('')||'<tr><td colspan="5">조회된 상품이 없습니다.</td></tr>'}</tbody></table></div><p class="aux-sub">화면 검토용 재고입니다.</p>`;
+}
+function documentPage(){
+ const topics=['포인트/영수증','멤버십매뉴얼','점포','재고','습득/분실물','점포소식'];
+ const membership=['회원 가입 방법','자주 묻는 질문','한눈에 보기','TR CASH 혜택안내','TR CASH 이용안내'];
+ const guides={'회원 가입 방법':'회원 메뉴에서 가입 단계와 동의 항목을 확인하는 화면 예시입니다.','자주 묻는 질문':'멤버십 가입, 결제, 적립 문의를 조회하는 화면 예시입니다.','한눈에 보기':'멤버십 구분과 조회 경로를 한 화면에서 확인합니다.','TR CASH 혜택안내':'멤버십과 적립 혜택을 비교하는 화면 예시입니다.'};
+ const steps=['회원 바코드 스캔','상품 스캔','결제'];
+ const text={'포인트/영수증':'고객 식별 및 주문 결제를 확인한 후 포인트 사용과 영수증 항목을 찾습니다.','점포':'점포별 영업시간과 고객센터 연락 정보를 안내합니다.','재고':'점포 및 상품명을 확인하고, 실제 판매 가능 수량은 점포에 재확인합니다.','습득/분실물':'고객 방문일과 품목을 확인한 뒤 담당 점포 접수 기준에 따라 안내합니다.','점포소식':'점포 행사 및 운영 공지의 대상과 기간을 확인합니다.'};
+ let body=support.doc==='재고'?inventoryGuide():panel(support.doc,'<p>'+clean(text[support.doc])+'</p>');
+ if(support.doc==='멤버십매뉴얼'){
+  body='<div class="row ref-pills">'+membership.map(topic=>btn(topic,'doc-topic:'+topic,support.docTopic===topic)).join('')+'</div><hr>'+
+  (support.docTopic==='TR CASH 이용안내'?`<div class="stack"><h3>적립 방법</h3><div class="doc-steps">${steps.map((step,i)=>panel('STEP '+(i+1),step)).join('')}</div>${panel('조회 경로','영수증, 앱 메인 화면 및 앱의 내 정보에서 확인하는 화면 예시입니다.')}${panel('유의사항','상담 안내 시 실제 적용 기준과 유효기간을 확인해 주세요.')}</div>`:panel(support.docTopic,'<p>'+clean(guides[support.docTopic])+'</p>'));
+ }
+ return '<h2 class="aux-title">문서정보</h2><div class="aux-box"><div class="row ref-pills">'+topics.map(topic=>btn(topic,'doc:'+topic,support.doc===topic)).join('')+'</div><hr>'+body+'</div>';
+}
+function forms(action){
+ const t=state.ticket,c=customer(),o=state.order;
+ switch(action){
+ case 'address':
+  if(o.status==='배송 완료'){modal('상세 주소 변경','<p class="notice">배송 완료된 주문입니다. 주문 당시 배송지를 확인할 수 있습니다.</p>'+kv([['기존 배송지','서울 마포구 성산동 **'],['요청사항','부재 시 문 앞']]));break;}
+  formDialog('상세 주소 변경 · '+o.id,kv([['현재 상세 주소',clean(o.address||'성산동 **')]])+'<label class="field">변경 상세 주소<input name="address" required autocomplete="off"></label>','address','변경 내용 확인');break;
+ case 'sms':
+  if(c.phone==='미확인'){modal('문자 발송','<p class="notice">확인된 연락처가 연결된 고객의 티켓에서 발송할 수 있습니다.</p>');break;}
+  formDialog('문자 발송',kv([['수신 연락처',c.phone]])+'<label class="field">메시지<textarea name="body" required rows="3">문의하신 주문의 처리 상태를 확인해 안내드립니다.</textarea></label>','sms','가상 발송');break;
+ case 'comp':
+  if(t.owner==='guest'){modal('고객보상','<p class="notice">고객 식별 후 보상 대상을 확인합니다.</p>',btn('고객 정보 확인','customer',true));break;}
+  formDialog('고객보상 접수',kv([['대상',c.name],['연결 주문',o?.id||'미연결']])+'<label class="field">보상 유형<select name="type"><option>사과 쿠폰</option><option>배송 지연 보상 e머니</option><option>이마티콘</option></select></label><label class="field">예시 금액<select name="amount"><option value="3000">3,000원</option><option value="5000">5,000원</option></select></label><label class="field">보상 사유<input name="reason" required></label><p class="quiet">보상 접수는 주문 환불과 별도로 기록합니다.</p>','comp','가상 보상 접수');break;
+ case 'inquiry':
+  modal('1:1 문의 내역',t.owner==='member'?kv([['2026.11.09','쿠폰 적용 · 답변 완료'],['2026.11.03','배송지 변경 · 답변 완료']]):'<p>연결된 1:1 문의가 없습니다.</p>',btn('문의 등록','inquiry-form',true));break;
+ case 'inquiry-form':
+  formDialog('1:1 문의 등록',kv([['연결 티켓','#'+t.id],['연결 주문',o?.id||'미선택']])+'<label class="field">제목<input name="title" required></label><label class="field">문의 내용<textarea name="body" rows="3" required></textarea></label>','inquiry','가상 등록');break;
+ case 'note':
+  formDialog('상담 메모','<label class="field">티켓 #'+t.id+'<textarea name="note" rows="4">'+clean(state.notes[t.id]||'')+'</textarea></label>','note','저장');break;
+ case 'transfer':
+  formDialog('상담 이관','<label class="field">이관 대상<select name="team"><option>주문·배송팀</option><option>반품·환불팀</option><option>회원지원팀</option></select></label><label class="field">이관 사유<input name="reason" required></label>','transfer','이관 확정');break;
+ case 'end':
+  if(t.state==='종료'){modal('상담 종료','<p>이미 종료된 티켓입니다.</p>');break;}
+  modal('상담 종료','<p>티켓 #'+t.id+' 상담을 종료할까요?</p>',btn('계속 상담','close')+btn('종료 확정','form:end',true));break;
+ case 'attach':
+  formDialog('파일 첨부','<label class="field">채팅에 첨부할 파일<input type="file" name="file" required></label><p class="quiet">목업에서는 첨부 파일 이름을 채팅에 표시합니다.</p>','attach','가상 첨부');break;
+ }
+}
+function submitForm(action){
+ const form=$('detail-form'),t=state.ticket,o=state.order;
+ if(form&&!form.reportValidity())return;
+ const fields=form?new FormData(form):null;
+ switch(action){
+ case 'address':{
+  const next=fields.get('address').trim();
+  if(!next){toast('변경할 상세 주소를 입력해 주세요.');return;}
+  modal('배송지 변경 확인',kv([['주문번호',o.id],['변경할 상세 주소',clean(next)]]),btn('이전','address')+btn('변경 확정','address-apply',true),false,'address-review');
+  state.pending={address:next,order:o.id};return;
+ }
+ case 'comp':{
+  const entry={id:'CS-'+(1001+state.comp.length),owner:t.owner,type:fields.get('type'),amount:Number(fields.get('amount'))};
+  state.comp.unshift(entry);info('comp-log');return;
+ }
+ case 'sms':close();toast('문자 가상 발송 완료');return;
+ case 'inquiry':close();toast('1:1 문의 가상 등록 완료');return;
+ case 'note':state.notes[t.id]=fields.get('note');close();toast('상담 메모 저장 완료');return;
+ case 'transfer':t.state='이관 요청';close();render();toast(fields.get('team')+'으로 가상 이관 요청');return;
+ case 'end':t.state='종료';state.filter='closed';close();render();toast('상담 종료');return;
+ case 'attach':if(t.state==='종료'){close();toast('종료된 상담입니다.');return;} t.messages.push(['상담사','첨부: '+fields.get('file').name,time()]);renderChat();close();return;
+ }
+}
+function searchCatalog(){
+ const q=$('catalog-form').elements.query.value.trim().toLowerCase();
+ const bySku=new Map(orders.flatMap(o=>o.items).map(i=>[i.sku,i]));
+ const rows=[...bySku.values()].filter(i=>i.name.toLowerCase().includes(q));
+ $('catalog-results').innerHTML=rows.length?kv(rows.map(i=>[i.sku,i.name+' · '+won(i.price)])):'<p>일치하는 상품이 없습니다.</p>';
+}
+function action(key){
+ const [name,arg]=key.split(':');
+ const t=state.ticket,o=state.order;
+ switch(name){
+ case 'mode':close();state.mode=arg;render();$('work').scrollTop=0;break;
+ case 'nav':navigate(arg);break;
+ case 'ticket-preview':ticketQuery.selected=arg;managedPage();break;
+ case 'ticket-page':ticketQuery.page=Number(arg);managedPage();break;
+ case 'ticket-open':{
+  const ticket=tickets.find(t=>t.id===arg);
+  if(ticket){state.nav='내 티켓';state.filter=ticket.state==='종료'?'closed':'open';state.channel='전체';setTicket(ticket);}
+  break;
+ }
+ case 'doc':support.doc=arg;managedPage();break;
+ case 'doc-topic':support.docTopic=arg;managedPage();break;
+ case 'compare':if(!inConsultation())navigate('내 티켓');showComparison();break;
+ case 'filter':state.filter=arg;renderTickets();break;
+ case 'ticket':setTicket(tickets.find(t=>t.id===arg));break;
+ case 'tab':state.tab=arg;renderRight();$('work').scrollTop=0;break;
+ case 'summary':{
+  const section=$('summary-'+arg);
+  if(section){
+   state.summaryOpen.add(section.id);
+   section.open=true;
+   const work=$('work');
+   work.scrollTop+=section.getBoundingClientRect().top-work.getBoundingClientRect().top;
+  }
+  break;
+ }
+ case 'history':showHistory(true);break;
+ case 'order':setOrder(ownOrders().find(o=>o.id===arg));close();toast('주문을 선택했습니다.');break;
+ case 'origin':setOrder(orders.find(o=>o.id===t.order));break;
+ case 'item':{
+  const before=state.modal;
+  state.index=Number(arg);renderRight();
+  if(before==='products')products();
+  if(before==='claim-choice')claimForm();
+  break;
+ }
+ case 'close':close();break;
+ case 'customer':customerModal();break;
+ case 'manual':modal('커머스 상담 가이드',kv([['결품 환불','결품 상품의 수량과 환불 금액을 확인합니다.'],['과거 주문 반품','기간 또는 상품명으로 주문을 찾고 반품 사유와 회수 방법을 선택합니다.'],['CS 보상','보상 유형과 사유를 확인한 뒤 별도로 접수합니다.']]));break;
+ case 'catalog':
+  modal('상품 검색',`<form id="catalog-form" class="row"><input name="query" aria-label="검색할 상품명" placeholder="예: 딸기"><button class="primary">검색</button></form><hr><div id="catalog-results"></div>`,btn('닫기','close'),false,'catalog');
+  searchCatalog();break;
+ case 'comp-option':
+  forms('comp');
+  if(state.ticket.owner!=='guest')$('detail-form').elements.type.selectedIndex=Number(arg);
+  break;
+ case 'online':state.online=!state.online;renderNav();toast(state.online?'온라인으로 변경했습니다.':'오프라인으로 변경했습니다.');break;
+ case 'agent':modal('상담사 상태',kv([['상담사','김영기'],['현재 상태',state.online?'온라인':'오프라인'],['업무','온라인 커머스 상담']]),btn(state.online?'오프라인 전환':'온라인 전환','agent-toggle',true));break;
+ case 'agent-toggle':close();action('online');break;
+ case 'recent':{
+  const record=recent.find(r=>r.id===arg&&r.owner===t.owner);
+  if(!record)break;
+  state.history=record;historyList();renderHistoryPane();
+  document.querySelector('#history-pane [data-action="history-close"]')?.focus();
+  break;
+ }
+ case 'history-more':
+  state.historyExpanded=!state.historyExpanded;historyList();
+  document.querySelector('[data-action="history-more"]')?.focus();
+  break;
+ case 'history-close':{
+  const id=state.history?.id;
+  state.history=null;historyList();renderHistoryPane();
+  if(id)(document.querySelector(`[data-action="recent:${id}"]`)||document.querySelector('[data-action="history-more"]'))?.focus();
+  break;
+ }
+ case 'receipt':receipt();break;
+ case 'payment':receipt(true);break;
+ case 'products':products();break;
+ case 'cancel-order':orderCancel();break;
+ case 'cancel-order-review':reviewOrderCancel();break;
+ case 'cancel-order-submit':submitOrderCancel();break;
+ case 'claim':claimForm(arg);break;
+ case 'claim-review':claimReview(arg);break;
+ case 'claim-submit':submitClaim();break;
+ case 'claim-detail':claimDetail(arg);break;
+ case 'claim-advance':{
+  const c=related().find(entry=>entry.id===arg);
+  const steps={'반품 접수 · 회수 대기':'회수 완료 · 검수 대기','회수 완료 · 검수 대기':'검수 완료 · 환불 대기','검수 완료 · 환불 대기':'환불 완료','환불 접수':'환불 완료','취소 접수':'취소 완료'};
+  if(c&&steps[c.status]){c.status=steps[c.status];if(c.type==='전체 취소')o.status=c.status;renderRight();claimDetail(arg);}
+  break;
+ }
+ case 'claim-message':{
+  const result=claims.find(c=>c.id===arg);
+  state.drafts[t.id]=(result.type==='전체 취소'?'주문 '+result.order+' 전체 '+result.status:result.name+' '+result.qty+'개 '+result.status)+'입니다. 접수번호는 '+result.id+'입니다.';
+  close();renderChat();$('chat-input').focus();break;
+ }
+ case 'quick':support.quickOpen=true;quickQuery.query='';quickQuery.scope='전체';quickQuery.field='제목+내용';renderQuickChat();$('reply-search-chat').elements.query.focus();break;
+ case 'quick-close':support.quickOpen=false;renderQuickChat();$('chat-input').focus();break;
+ case 'reply-list':showQuickManager();break;
+ case 'reply-detail':showQuickManager('detail',arg);break;
+ case 'reply-edit':showQuickManager('edit',arg==='new'?null:arg);break;
+ case 'reply-delete':showQuickManager('delete',arg);break;
+ case 'reply-remove':{
+  const index=replyRecords.findIndex(r=>r.id===Number(arg));
+  if(index>=0){replyRecords.splice(index,1);showQuickManager();renderQuickChat();toast('빠른 답변을 삭제했습니다.');}
+  break;
+ }
+ case 'quick-use':{
+  const reply=replyById(arg);
+  if(!reply||!inConsultation())break;
+  if(t.state==='종료'){toast('종료된 티켓입니다.');break;}
+  const draft=state.drafts[t.id];
+  state.drafts[t.id]=draft?.trim()?draft+' '+reply.body:reply.body;
+  if(state.modal==='reply-manager')close();
+  renderChat();$('chat-input').focus();break;
+ }
+ case 'address-apply':if(state.pending?.order===o?.id){o.address=state.pending.address;state.pending=null;close();renderRight();toast('상세 주소가 변경되었습니다.');}break;
+ case 'form':submitForm(arg);break;
+ case 'tracking':case 'delivery-request':case 'store-event':case 'store-contact':case 'promo':case 'policy':case 'benefits':case 'cart':case 'claim-log':case 'comp-log':info(name);break;
+ case 'address':case 'sms':case 'comp':case 'inquiry':case 'inquiry-form':case 'note':case 'transfer':case 'end':case 'attach':forms(name);break;
+ }
+}
+document.addEventListener('click',event=>{
+ const control=event.target.closest('button[data-action]');
+ if(!control){
+  const row=event.target.closest('tr[data-ticket-preview]');
+  if(row)action('ticket-preview:'+row.dataset.ticketPreview);
+  return;
+ }
+ if(control.disabled)return;
+ const key=control.dataset.action;
+ if(key.startsWith('item:')&&$('dialog').open&&!$('dialog').contains(control))close();
+ action(key);
+});
+document.addEventListener('change',event=>{
+ const el=event.target;
+ if(el.id==='channel'){state.channel=el.value;renderTickets();$('channel').focus();}
+ if(el.id==='topic'){state.ticket.topic=el.value;renderTickets();}
+ if(el.form?.id==='order-search'&&['period','status'].includes(el.name))searchOrders();
+ if(el.form?.id==='claim-form'&&el.name==='qty')$('refund-estimate').textContent=won(Number(el.value)*currentItem().price);
+});
+document.addEventListener('toggle',event=>{
+ const section=event.target;
+ if(!section.id?.startsWith('summary-')||!section.isConnected)return;
+ if(section.open)state.summaryOpen.add(section.id);
+ else state.summaryOpen.delete(section.id);
+},true);
+document.addEventListener('input',event=>{if(event.target.id==='chat-input')state.drafts[state.ticket.id]=event.target.value;});
+document.addEventListener('submit',event=>{
+ event.preventDefault();
+ const form=event.target;
+ if(form.id==='ticket-search-form'){
+  Object.assign(ticketQuery,Object.fromEntries(new FormData(form)),{page:1});
+  managedPage();
+ }
+ if(form.id.startsWith('reply-search-')){
+  Object.assign(quickQuery,Object.fromEntries(new FormData(form)));
+  if(form.id==='reply-search-chat')renderQuickChat();
+  else showQuickManager();
+ }
+ if(form.id==='reply-form')saveReply(form);
+ if(form.id==='inventory-form'){
+  Object.assign(support.inventory,Object.fromEntries(new FormData(form)));
+  managedPage();
+ }
+ if(event.target.id==='order-search')searchOrders();
+ if(event.target.id==='catalog-form')searchCatalog();
+ if(event.target.id==='chat-form'){
+  const text=$('chat-input').value.trim();
+  if(text&&state.ticket.state!=='종료'){state.ticket.messages.push(['상담사',text,time()]);state.drafts[state.ticket.id]='';renderChat();$('chat-input').focus();}
+ }
+});
+wireDialogMovement();
+render();
+setTimeout(()=>{state.initialAlert=false;},2700);
+</script></body></html>
